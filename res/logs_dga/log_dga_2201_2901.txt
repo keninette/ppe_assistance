@@ -1,0 +1,43 @@
+[---------------Window.java---------------]
+1. Modification de la méthode addTechFields() : 
+	- Ajout de la création de l'onglet d'accueil du technicien
+	- Appel de createTechVisWelcomeTab
+2. Ajout de la méthode createTechVisWelcomeTab()
+
+[---------------Employee.java---------------]
+3. Ajout de la méthode getUserOpenedTicketNumber(String psUserId)
+4. Modification des commentaires pour documentation
+5. Getters renommés :
+	- getNumEmployee()
+	- getRights()
+	- getFirstName()
+	
+[---------------Database.java---------------]
+6. Méthodes renommées :
+	- find() -> executeQuery()
+	- prepareFind() -> executePreparedQuery()
+7. Changé querry en query dans executeQuery et executePreparedQuery (params)		
+
+[---------------Ticket.java---------------]
+6. Création de la classe Ticket.java
+7. Création des méthodes :
+	- 
+
+[---------------TicketService.java---------------]
+8. Création de la classe Ticket service
+9. Création des méthodes :
+
+
+[---------------TicketTableModel.java---------------]	
+10. Création de la classe
+11. Création des méthodes :
+
+
+[---------------Window.java---------------]
+12. Changé .hide() en .setVisible(false) car deprecated
+
+[--------------- BDD ---------------]
+ticket :
+	- ajout numTicketLevel clé étrangère en ref à numTicketLevel de ticketLevel
+	- ajout numEquipment clé étrangère en ref à numEquipment de equipment
+
