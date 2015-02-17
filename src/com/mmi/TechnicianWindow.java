@@ -13,7 +13,7 @@ public class TechnicianWindow extends Window {
 	public TechnicianWindow(Employee pUser){
 		super.createWindow();
 		super.user = pUser;
-		super.window.setSize(800,600);
+		super.window.setSize(1310,760);
 		super.window.setTitle("Assistance - Gestion d'incidents");
 		super.window.setResizable(false);
 		this.createComponents();
@@ -26,7 +26,7 @@ public class TechnicianWindow extends Window {
 		viewEquipmentTab = new ViewEquipment(this);
 		
 		tabs.setTabPlacement(2);
-		tabs.setBounds(0,0,800,600);
+		tabs.setBounds(0,0,1310,750);
 		tabs.setBackground(Color.WHITE);
 		
 		// Adding tabs to JTabbedPane

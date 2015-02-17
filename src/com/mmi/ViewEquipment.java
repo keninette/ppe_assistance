@@ -25,9 +25,9 @@ public class ViewEquipment extends ViewTab {
 		super.setTab();
 		super.icon = new ImageIcon("res/img/icons/icon_equipment.png");
 		super.window = pWindow;
-		super.jpSearchFields.setBounds(0,0,780,200);
+		super.jpSearchFields.setBounds(0,0,1310,200);
 		super.jpSearchFields.setBackground(Color.blue);
-		super.jpSearchResult.setBounds(0,210,780,350);
+		super.jpSearchResult.setBounds(0,200,1310,550);
 		super.jpSearchResult.setBackground(Color.red);
 	}
 	
@@ -89,11 +89,15 @@ public class ViewEquipment extends ViewTab {
 		ResultSet	rs;
 		int			i				= 0;
 		
+		// Delete all results from precedent 
+		super.jpSearchResult.setVisible(false);
+		super.jpSearchResult.removeAll();
+		
 		// Get search fields values
-		Component t[] = this.jpTabContent.getComponents();
+		Component t[] = this.jpSearchFields.getComponents();
 		for (Component c : t){
 			if (c.getName() != null){
-				switch(c.getName().toString()) {
+				switch(c.getName()) {
 					case "serialNumber":
 						sSerialNumber = new String(((JTextField) c).getText().toString());
 						break;
@@ -105,7 +109,7 @@ public class ViewEquipment extends ViewTab {
 			}
 		}
 		// Write Where clause depending on search fields filled
-		sWhereClause += sSerialNumber.isEmpty() ? "" : " AND e.serialNumber = ? ";
+		sWhereClause += (sSerialNumber.equals(null) || sSerialNumber.isEmpty()) ? "" : " AND e.serialNumber = ? ";
 		if (!sWhereClause.equals("WHERE 1 = 1")) {
 			String	tTemp[][] = {{"String", sSerialNumber}};
 			// Execute query
@@ -121,6 +125,7 @@ public class ViewEquipment extends ViewTab {
 			}
 			odbCon.disconnect();
 		}
+		super.jpSearchResult.setVisible(true);
 	}
 
 	@Override
@@ -128,10 +133,6 @@ public class ViewEquipment extends ViewTab {
 		ImageIcon	imgEquipIcon 		= null;
 		JLabel		lbEquipIcon			= new JLabel();
 		JLabel		lbEquipName			= null;
-		
-		// Delete all results from precedent 
-		super.jpSearchResult.setVisible(false);
-		super.jpSearchResult.removeAll();
 		
 		// Create new content
 		try {
@@ -145,14 +146,13 @@ public class ViewEquipment extends ViewTab {
 		if (i == 0) {
 			// Customize new content
 			lbEquipIcon.setIcon(imgEquipIcon);
-			lbEquipIcon.setBounds(0,0+i*310,300,300);
-			//lbEquipName.setBounds(310,0+i*310,300,300);
+			lbEquipIcon.setBounds(0, 20,300,300);
+			lbEquipName.setBounds(0, 320,300,20);
 			
 			// Add content to JPanel
-			super.jpSearchResult.add(lbEquipIcon);
-			//super.jpSearchResult.add(lbEquipName);
+			this.jpSearchResult.add(lbEquipIcon);
+			this.jpSearchResult.add(lbEquipName);
 		}
-		super.jpSearchResult.setVisible(true);
 	}
 	
 	
