@@ -2,6 +2,7 @@ package com.mmi;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.sql.ResultSet;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -37,5 +38,15 @@ public class ViewTickets extends ViewTab {
 		super.jpTabContent.add(jtTable, BorderLayout.CENTER);
 		
 		return(jpTabContent);
+	}
+
+	@Override
+	protected void triggerSearchAction() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	protected void displaySearchResults(ResultSet rs, int i) {
+		// TODO Auto-generated method stub
 	}
 }

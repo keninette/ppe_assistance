@@ -1,13 +1,19 @@
 package com.mmi;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.bll.Employee;
+import com.dal.Database;
+
 import enums.ComboType;
 
 public class ViewEquipment extends ViewTab {
@@ -19,6 +25,10 @@ public class ViewEquipment extends ViewTab {
 		super.setTab();
 		super.icon = new ImageIcon("res/img/icons/icon_equipment.png");
 		super.window = pWindow;
+		super.jpSearchFields.setBounds(0,0,780,200);
+		super.jpSearchFields.setBackground(Color.blue);
+		super.jpSearchResult.setBounds(0,210,780,350);
+		super.jpSearchResult.setBackground(Color.red);
 	}
 	
 	@Override
@@ -30,7 +40,7 @@ public class ViewEquipment extends ViewTab {
 		Combo			cbBrand			= new Combo();
 		JLabel			lbMedicalRep	= new JLabel("Par visiteur médical");
 		JTextField		tfMedicalRep	= new JTextField();
-		SearchButton	sbSearchButton	= new SearchButton(super.window,"");
+		SearchButton	sbSearchButton	= new SearchButton(this,"","search");
 	
 		
 		// Customize components
@@ -42,23 +52,108 @@ public class ViewEquipment extends ViewTab {
 		lbMedicalRep.setBounds(460,40,200,20);
 		// JTextField
 		tfSerialNumber.setBounds(20,60,200,20);
+		tfSerialNumber.setName("serialNumber");
 		tfMedicalRep.setBounds(460,60,200,20);
+		tfMedicalRep.setName("medicalRep");
 		// Combo
 		cbBrand.setBounds(240,60,200,20);
+		cbBrand.setName("brand");
 		// JButton
 		sbSearchButton.setBounds(680,50,30,30);
 		// Fill comboBoxes
 		cbBrand.fillComboBox(ComboType.COMBO_BRAND.toString());
 		// Add components to JPanel
-		super.jpTabContent.add(lbSearch);
-		super.jpTabContent.add(lbSerialNumber);
-		super.jpTabContent.add(tfSerialNumber);
-		super.jpTabContent.add(lbBrand);
-		super.jpTabContent.add(cbBrand);
-		super.jpTabContent.add(lbMedicalRep);
-		super.jpTabContent.add(tfMedicalRep);
-		super.jpTabContent.add(sbSearchButton);
+		super.jpSearchFields.add(lbSearch);
+		super.jpSearchFields.add(lbSerialNumber);
+		super.jpSearchFields.add(tfSerialNumber);
+		super.jpSearchFields.add(lbBrand);
+		super.jpSearchFields.add(cbBrand);
+		super.jpSearchFields.add(lbMedicalRep);
+		super.jpSearchFields.add(tfMedicalRep);
+		super.jpSearchFields.add(sbSearchButton);
 		
 		return jpTabContent;
 	}
+
+	@Override
+	protected void triggerSearchAction() {
+		String 		sSerialNumber 	= 	null;
+		String 		sMedicalRep		= 	null;
+		String		sBrand			= 	null;
+		String		sQuery			= 	"SELECT 	* " +
+										"FROM 		equipment e " +
+										"LEFT JOIN	component c " +
+										"ON			c.numEquipment = e.numEquipment ";
+		String		sWhereClause	= 	new String("WHERE 1 = 1");
+		Database	odbCon			= 	new Database();
+		ResultSet	rs;
+		int			i				= 0;
+		
+		// Get search fields values
+		Component t[] = this.jpTabContent.getComponents();
+		for (Component c : t){
+			if (c.getName() != null){
+				switch(c.getName().toString()) {
+					case "serialNumber":
+						sSerialNumber = new String(((JTextField) c).getText().toString());
+						break;
+					//case "medicalRep":
+						//break;
+					case "brand":
+						break;
+				}
+			}
+		}
+		// Write Where clause depending on search fields filled
+		sWhereClause += sSerialNumber.isEmpty() ? "" : " AND e.serialNumber = ? ";
+		if (!sWhereClause.equals("WHERE 1 = 1")) {
+			String	tTemp[][] = {{"String", sSerialNumber}};
+			// Execute query
+			odbCon.connect();
+			rs = odbCon.executePreparedQuery(sQuery +sWhereClause, tTemp);
+			try {
+				while(rs.next()){
+					displaySearchResults(rs,i);
+					i++;
+				}
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+			odbCon.disconnect();
+		}
+	}
+
+	@Override
+	protected void displaySearchResults(ResultSet rs, int i) {
+		ImageIcon	imgEquipIcon 		= null;
+		JLabel		lbEquipIcon			= new JLabel();
+		JLabel		lbEquipName			= null;
+		
+		// Delete all results from precedent 
+		super.jpSearchResult.setVisible(false);
+		super.jpSearchResult.removeAll();
+		
+		// Create new content
+		try {
+			if (i==0){
+				imgEquipIcon = new ImageIcon("res/img/equipment/" +rs.getString("photo"));
+				lbEquipName = new JLabel(rs.getString("label"));
+			}
+		} catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
+		if (i == 0) {
+			// Customize new content
+			lbEquipIcon.setIcon(imgEquipIcon);
+			lbEquipIcon.setBounds(0,0+i*310,300,300);
+			//lbEquipName.setBounds(310,0+i*310,300,300);
+			
+			// Add content to JPanel
+			super.jpSearchResult.add(lbEquipIcon);
+			//super.jpSearchResult.add(lbEquipName);
+		}
+		super.jpSearchResult.setVisible(true);
+	}
+	
+	
 }

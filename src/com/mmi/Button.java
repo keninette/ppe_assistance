@@ -5,8 +5,8 @@ import javax.swing.JButton;
 
 public class Button extends JButton {
 	
-	protected String 			name;
-	protected Window 			window;
+	protected String 	name;
+	protected Window 	window;
 	
 	/**
 	 * Class constructor
@@ -16,6 +16,17 @@ public class Button extends JButton {
 	public Button (Window pWindow,String pLabel){
 		super(pLabel);
 		this.name = pLabel;
+		this.window = pWindow;
+	}
+	
+	/**
+	 * Class constructor (2)
+	 * @param pWindow : (Window) Window in which button is displayed
+	 * @param pLabel : (String) Button's label
+	 */
+	public Button (Window pWindow,String pLabel, String pName){
+		super(pLabel);
+		this.name = pName;
 		this.window = pWindow;
 	}
 	
