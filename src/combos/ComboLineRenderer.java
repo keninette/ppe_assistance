@@ -1,10 +1,11 @@
-package com.mmi;
+package combos;
 
 import java.awt.Component;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
+
 
 public class ComboLineRenderer extends JLabel implements ListCellRenderer {
 	private String label;

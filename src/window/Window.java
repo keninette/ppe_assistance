@@ -1,4 +1,4 @@
-package com.mmi;
+package window;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -12,6 +12,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import com.bll.Employee;
+import com.mmi.TicketTableModel;
 
 /**
  * Class to create windows

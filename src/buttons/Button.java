@@ -1,6 +1,9 @@
-package com.mmi;
+package buttons;
 
 import javax.swing.JButton;
+
+import window.Window;
+
 
 
 public class Button extends JButton {

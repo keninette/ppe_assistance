@@ -1,4 +1,4 @@
-package com.mmi;
+package buttons;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,11 +8,16 @@ import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
+import searchTabs.SearchTab;
+import viewTabs.ViewTab;
+
+
+
 public class SearchButton extends Button implements MouseListener {
-	private ViewTab tab;
+	private SearchTab tab;
 	
-	public SearchButton(ViewTab pTab, String pLabel, String pName) {
-		super(pTab.window, "", pName);
+	public SearchButton(SearchTab pTab, String pLabel, String pName) {
+		super(pTab.getWindow(), "", pName);
 		this.setIcon(new ImageIcon("res/img/icons/icon_search.png"));
 		this.addMouseListener(this);
 		this.tab = pTab;

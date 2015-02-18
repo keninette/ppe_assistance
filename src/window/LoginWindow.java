@@ -1,10 +1,15 @@
-package com.mmi;
+package window;
 
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+
+import buttons.Button;
+import buttons.ConnectButton;
+
 import com.bll.Employee;
+import com.mmi.ErrorMessage;
 
 public class LoginWindow extends Window {
 	

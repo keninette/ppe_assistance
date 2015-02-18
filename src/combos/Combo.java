@@ -1,4 +1,4 @@
-package com.mmi;
+package combos;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

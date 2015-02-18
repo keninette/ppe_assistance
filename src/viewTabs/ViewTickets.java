@@ -1,4 +1,4 @@
-package com.mmi;
+package viewTabs;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -9,7 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
+
 import com.bll.Employee;
+import com.mmi.TicketTableModel;
 
 public class ViewTickets extends ViewTab {
 	
@@ -38,15 +40,5 @@ public class ViewTickets extends ViewTab {
 		super.jpTabContent.add(jtTable, BorderLayout.CENTER);
 		
 		return(jpTabContent);
-	}
-
-	@Override
-	protected void triggerSearchAction() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	protected void displaySearchResults(ResultSet rs, int i) {
-		// TODO Auto-generated method stub
 	}
 }

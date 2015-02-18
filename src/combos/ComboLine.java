@@ -1,4 +1,4 @@
-package com.mmi;
+package combos;
 
 public class ComboLine {
 	private int 	itemId;
