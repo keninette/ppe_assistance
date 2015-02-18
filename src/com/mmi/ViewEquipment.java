@@ -80,10 +80,20 @@ public class ViewEquipment extends ViewTab {
 		String 		sSerialNumber 	= 	null;
 		String 		sMedicalRep		= 	null;
 		String		sBrand			= 	null;
-		String		sQuery			= 	"SELECT 	* " +
+		String		sQuery			= 	"SELECT 	e.numEquipment, " +
+										"			e.label, " +
+										"			e.serialNumber, " +
+										"			e.purchaseDate	AS 	ePurchaseDate, " +
+										"			e.warrantyDate	AS	eWarrantyDate," +
+										"			e.originalComponents, " +
+										" 			e.photo " +
 										"FROM 		equipment e " +
 										"LEFT JOIN	component c " +
-										"ON			c.numEquipment = e.numEquipment ";
+										"ON			c.numEquipment = e.numEquipment " +
+										"LEFT JOIN	brand b	" +
+										"ON 		b.numBrand = e.numBrand" +
+										"LEFT JOIN	supplier s " +
+										"ON 		s.numSupplier = e.numSupplier";
 		String		sWhereClause	= 	new String("WHERE 1 = 1");
 		Database	odbCon			= 	new Database();
 		ResultSet	rs;
@@ -134,6 +144,7 @@ public class ViewEquipment extends ViewTab {
 		JLabel		lbEquipIcon			= new JLabel();
 		JLabel		lbEquipName			= null;
 		JLabel		lbSerialNumber		= null;
+		JLabel		lbOriginalComponents 	= new JLabel("Composants d'origine : ");
 		
 		// Create new content
 		try {
@@ -141,6 +152,7 @@ public class ViewEquipment extends ViewTab {
 				imgEquipIcon = new ImageIcon("res/img/equipment/" +rs.getString("photo"));
 				lbEquipName = new JLabel(rs.getString("label"));
 				lbSerialNumber = new JLabel(rs.getString("serialNumber"));
+				lbOriginalComponents = new JLabel("Composants d'origine : " +(rs.getInt("originalComponent") == 1 ? "oui" : "non"));
 			}
 		} catch (SQLException e){
 			System.out.println(e.getMessage());
@@ -150,11 +162,14 @@ public class ViewEquipment extends ViewTab {
 			lbEquipIcon.setIcon(imgEquipIcon);
 			lbEquipIcon.setBounds(0, 0,200,200);
 			lbEquipName.setBounds(210, 0,200,20);
-			lbSerialNumber.setBounds(210, 0,200,40);
+			lbSerialNumber.setBounds(210, 20,200,20);
+			lbOriginalComponents.setBounds(210,40,200,20);
 			
 			// Add content to JPanel
 			this.jpSearchResult.add(lbEquipIcon);
 			this.jpSearchResult.add(lbEquipName);
+			this.jpSearchResult.add(lbSerialNumber);
+			this.jpSearchResult.add(lbOriginalComponents);
 		}
 	}
 	
