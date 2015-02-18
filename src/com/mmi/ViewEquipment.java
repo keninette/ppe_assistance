@@ -133,12 +133,14 @@ public class ViewEquipment extends ViewTab {
 		ImageIcon	imgEquipIcon 		= null;
 		JLabel		lbEquipIcon			= new JLabel();
 		JLabel		lbEquipName			= null;
+		JLabel		lbSerialNumber		= null;
 		
 		// Create new content
 		try {
 			if (i==0){
 				imgEquipIcon = new ImageIcon("res/img/equipment/" +rs.getString("photo"));
 				lbEquipName = new JLabel(rs.getString("label"));
+				lbSerialNumber = new JLabel(rs.getString("serialNumber"));
 			}
 		} catch (SQLException e){
 			System.out.println(e.getMessage());
@@ -146,8 +148,9 @@ public class ViewEquipment extends ViewTab {
 		if (i == 0) {
 			// Customize new content
 			lbEquipIcon.setIcon(imgEquipIcon);
-			lbEquipIcon.setBounds(0, 20,300,300);
-			lbEquipName.setBounds(0, 320,300,20);
+			lbEquipIcon.setBounds(0, 0,200,200);
+			lbEquipName.setBounds(210, 0,200,20);
+			lbSerialNumber.setBounds(210, 0,200,40);
 			
 			// Add content to JPanel
 			this.jpSearchResult.add(lbEquipIcon);
