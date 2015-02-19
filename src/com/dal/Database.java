@@ -73,7 +73,7 @@ public class Database {
 			rs = st.executeQuery(psQuery);
 		}
 		catch (SQLException e) {
-			System.out.println(e.getMessage());
+			System.out.println("[Erreur Database.executeQuery()]" +e.getMessage());
 		}
 		
 		return rs;
@@ -91,42 +91,47 @@ public class Database {
 	 */	
 	
 	public ResultSet executePreparedQuery(String psQuery, String pTable[][]) {
-		ResultSet rs = null;
-		Date d;
-		int i;
-		int j = pTable.length;
+		ResultSet 			rs = null;
+		PreparedStatement 	st = null;
+		//Date d;
+		int i = 0, j = pTable.length, k=1;
 		
 		try {
-			PreparedStatement st = con.prepareStatement(psQuery);
+			st = con.prepareStatement(psQuery);
+			
 			/**
 			 * Pour récuperer chaque paramètre il faut parcourir toutes les lignes du tableau.
 			 * Pour chaque ligne on récupère dans la première colonne le type du paramètre.
 			 * Pour la deuxième colonne on récupère la valeur du paramètre sans oublier de le transtyper (caster).
 			 * Chaque paramètre est ajouté à la requête en utilisant la méthode correspondant à son type.
-			 */			
+			 */	
+	
 			for (i=0; i<j; i++){
 				switch(pTable[i][0]){
-					case "int" : 
-						st.setInt(i+1, Integer.parseInt(pTable[i][1]));
+					case "int" : 				
+						st.setInt(k, Integer.parseInt(pTable[i][1]));
 						break;
 					case "String" :
-						st.setString(i+1, pTable[i][1]);
+						st.setString(k, pTable[i][1]);
 						break;
 					case "Date" :
 						//d = Tools.stringToDate("dd-MM-yy",pTable[i][1]);
-						//st.setDate(i+1, d);
+						//st.setDate(k+1, d);
 						break;
 					case "DateTime" :
 						//d = Tools.stringToDate("dd-MM-yy hh:mm:ss ",pTable[i][1]);
-						//st.setDate(i+1, d);
+						//st.setDate(k+1, d);
+						break;
+					case "none" :
+						k--;
 						break;
 				}
+				k++;
 			}
 			rs = st.executeQuery();
 		}
 		catch (SQLException e) {
-			System.out.println("Error : " +e.getMessage());
-			rs = null;
+			System.out.println("[Error Database.executePreparedQuery] " +e.getMessage());
 		}
 		return rs;
 		

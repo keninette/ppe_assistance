@@ -25,7 +25,7 @@ public class Combo extends JComboBox {
 		
 		this.setRenderer(new ComboLineRenderer());
 		this.removeAll();
-		this.addItem(new ComboLine(0,""));
+		this.addItem(new ComboLine(0,"Aucun(e)"));
 		
 		oDbCon.connect();
 		ResultSet rs = oDbCon.executeQuery(sQuery);

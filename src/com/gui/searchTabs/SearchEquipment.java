@@ -1,12 +1,12 @@
 package com.gui.searchTabs;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -14,12 +14,11 @@ import javax.swing.JTextField;
 
 
 import com.bll.Employee;
-import com.bll.Equipment;
 import com.bll.enums.ComboType;
 import com.dal.Database;
 import com.gui.buttons.SearchButton;
 import com.gui.combos.Combo;
-import com.gui.viewTabs.ViewTab;
+import com.gui.combos.ComboLine;
 import com.gui.window.Window;
 
 
@@ -66,14 +65,14 @@ public class SearchEquipment extends SearchTab {
 		// Fill comboBoxes
 		cbBrand.fillComboBox(ComboType.COMBO_BRAND.toString());
 		// Add components to JPanel
-		super.jpSearchFields.add(lbSearch);
-		super.jpSearchFields.add(lbSerialNumber);
-		super.jpSearchFields.add(tfSerialNumber);
-		super.jpSearchFields.add(lbBrand);
-		super.jpSearchFields.add(cbBrand);
-		super.jpSearchFields.add(lbMedicalRep);
-		super.jpSearchFields.add(tfMedicalRep);
-		super.jpSearchFields.add(sbSearchButton);
+		this.jpSearchFields.add(lbSearch);
+		this.jpSearchFields.add(lbSerialNumber);
+		this.jpSearchFields.add(tfSerialNumber);
+		this.jpSearchFields.add(lbBrand);
+		this.jpSearchFields.add(cbBrand);
+		this.jpSearchFields.add(lbMedicalRep);
+		this.jpSearchFields.add(tfMedicalRep);
+		this.jpSearchFields.add(sbSearchButton);
 		
 		return jpTabContent;
 	}
@@ -83,13 +82,14 @@ public class SearchEquipment extends SearchTab {
 		ResultSet	rs				= 	null;
 		String 		sSerialNumber 	= 	null;
 		String 		sMedicalRep		= 	null;
-		String		sBrand			= 	null;
+		int			nBrand			= 	0;
 		String		sWhereClauseE	= 	new String("WHERE 1 = 1");
 		Database	odbCon			= 	new Database();
+		int			i = 0;
 		
 		// Delete all results from precedent 
-		super.jpSearchResult.setVisible(false);
-		super.jpSearchResult.removeAll();
+		this.jpSearchResult.setVisible(false);
+		this.jpSearchResult.removeAll();
 		
 		// Get search fields values
 		Component t[] = this.jpSearchFields.getComponents();
@@ -102,14 +102,18 @@ public class SearchEquipment extends SearchTab {
 					//case "medicalRep":
 						//break;
 					case "brand":
+						nBrand = ((ComboLine)((JComboBox) c).getSelectedItem()).getItemId();
 						break;
 				}
 			}
 		}
-		
+			
 		// Write Where clause depending on search fields filled + add parameters for query
-		sWhereClauseE += (sSerialNumber.equals(null) || sSerialNumber.isEmpty()) ? "" : " AND e.serialNumber = ? ";
-		String	tTableE[][] = {{"String", sSerialNumber}};
+		sWhereClauseE += (sSerialNumber== null || sSerialNumber.isEmpty()) ? "" : " AND e.serialNumber = ? ";
+		sWhereClauseE += nBrand == 0 ? "" : " AND e.numBrand = ?";
+		String	tTableE[][] = 	{{sSerialNumber== null || sSerialNumber.isEmpty() ? "none" : "String", sSerialNumber}
+								,{nBrand == 0 ? "none" : "int", Integer.toString(nBrand)}};
+		
 		
 		// Execute query
 		if (!sWhereClauseE.equals("WHERE 1 = 1")) {
@@ -119,7 +123,8 @@ public class SearchEquipment extends SearchTab {
 			try {
 				while(rs.next()){
 					String tTableC[][] = {{"int", Integer.toString(rs.getInt("numEquipment"))}};
-					this.displaySearchResults(rs, findComponent("WHERE numEquipment = ?", tTableC, odbCon));
+					this.displaySearchResults(rs, findComponent("WHERE numEquipment = ?", tTableC, odbCon),i);
+					i++;
 				}
 			} catch (SQLException e) {
 				System.out.println("[Error in SearchEquipment.triggerSearchAction()] " +e.getMessage());
@@ -128,11 +133,12 @@ public class SearchEquipment extends SearchTab {
 		}
 		
 		// use results
-		super.jpSearchResult.setVisible(true);
-	}
+		this.jpSearchResult.setVisible(true);
+}
 
 	@Override
-	protected void displaySearchResults(ResultSet rsE, ResultSet rsC) {
+	protected void displaySearchResults(ResultSet rsE, ResultSet rsC, int k) {
+		JPanel		resultContainer			= 	new JPanel();
 		ImageIcon	imgEIcon 				= 	null;
 		JLabel		lbEIcon					= 	new JLabel();
 		JLabel		lbEBrand				= 	null;
@@ -140,7 +146,7 @@ public class SearchEquipment extends SearchTab {
 		JLabel		lbESerialNumber			= 	null;
 		JLabel		lbOriginalComponents 	= 	null;
 		JLabel		lbESupplier				= 	null;
-		int 		i = 1;
+		int 		i = 0, j=1;
 		
 		// Create new content
 		try {
@@ -154,28 +160,36 @@ public class SearchEquipment extends SearchTab {
 				lbESupplier				=	new JLabel("Fournisseur : " +rsE.getString("bLabel"));
 				
 				while(rsC.next()){
-					(this.jpSearchResult.add(new JLabel(rsC.getString("ctLabel") +" : " +rsC.getString("label")))).setBounds(500, i*20, 100,20);
-				}
+					if (i < 8) {
+						i++;
+					} else {
+						i=1;
+						j++;
+					}
+					(resultContainer.add(new JLabel(rsC.getString("ctLabel") +" : " +rsC.getString("label")))).setBounds(170+j*290, i*20, 250,20);				}
 			}
 		} catch (SQLException e){
 			System.out.println("[Error in SearchEquipment.displaySearchResults] " +e.getMessage());
 		}
 		// Customize new content
+		resultContainer.setBounds(0,k*210,1220,210);
+		resultContainer.setLayout(null);
 		lbEIcon.setIcon(imgEIcon);
 		lbEIcon.setBounds(0,0,200,200);
-		lbEBrand.setBounds(210,20,200,20);
-		lbEName.setBounds(210,40,200,20);
-		lbESerialNumber.setBounds(210,60,200,20);
-		lbOriginalComponents.setBounds(210,80,200,20);
-		lbESupplier.setBounds(210,100,200,20);
+		lbEBrand.setBounds(250,20,150,20);
+		lbEName.setBounds(250,40,150,20);
+		lbESerialNumber.setBounds(250,60,150,20);
+		lbOriginalComponents.setBounds(250,80,150,20);
+		lbESupplier.setBounds(250,100,200,20);
 		
 		// Add content to JPanel
-		this.jpSearchResult.add(lbEIcon);
-		this.jpSearchResult.add(lbEBrand);
-		this.jpSearchResult.add(lbEName);
-		this.jpSearchResult.add(lbESerialNumber);
-		this.jpSearchResult.add(lbOriginalComponents);
-		this.jpSearchResult.add(lbESupplier);
+		resultContainer.add(lbEIcon);
+		resultContainer.add(lbEBrand);
+		resultContainer.add(lbEName);
+		resultContainer.add(lbESerialNumber);
+		resultContainer.add(lbOriginalComponents);
+		resultContainer.add(lbESupplier);
+		this.jpSearchResult.add(resultContainer);
 	}
 	
 	/**
@@ -213,7 +227,7 @@ public class SearchEquipment extends SearchTab {
 	private ResultSet findComponent(String psWhereClause, String tTable[][], Database odbCon){
 		ResultSet	rs 		= null;
 		String 		sQuery	= 	"SELECT		c.numComponent, " +
-								"			c.label			AS 	cLabel, " +
+								"			c.label, " +
 								"			c.serialNumber, " +
 								" 			c.purchaseDate, " +
 								" 			c.warrantyDate, " +
@@ -226,9 +240,7 @@ public class SearchEquipment extends SearchTab {
 								"LEFT JOIN	component_type ct " +
 								"ON			ct.numComponentType = c.numComponentType " +
 								"LEFT JOIN	supplier s " +
-								"ON			s.numSupplier = c.numSupplier " +
-								"WHERE 		c.numEquipment = ?";
-		System.out.println(tTable);
+								"ON			s.numSupplier = c.numSupplier ";
 		rs = odbCon.executePreparedQuery(sQuery +psWhereClause, tTable);
 		return rs;
 	}	

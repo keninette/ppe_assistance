@@ -3,7 +3,6 @@ package com.gui.searchTabs;
 import java.awt.Color;
 import java.sql.ResultSet;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
@@ -16,7 +15,7 @@ public abstract class SearchTab {
 	protected	JPanel		jpSearchFields;
 	protected	JPanel		jpSearchResult;
 	private 	ImageIcon 	icon;
-	private	Window 		window;
+	private		Window 		window;
 	
 	
 	/**
@@ -64,7 +63,7 @@ public abstract class SearchTab {
 	 * @param rsE : (ResultSet) One Equipment resultSet
 	 * @param rsC : (ResultSet) That equipment's components ResulSet
 	 */
-	protected abstract void displaySearchResults(ResultSet rsE, ResultSet rsC);
+	protected abstract void displaySearchResults(ResultSet rsE, ResultSet rsC, int k);
 	
 	
 	/*************** getters ***************/

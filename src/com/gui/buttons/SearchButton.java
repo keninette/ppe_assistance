@@ -1,17 +1,10 @@
 package com.gui.buttons;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-
 import com.gui.searchTabs.SearchTab;
-import com.gui.viewTabs.ViewTab;
-
-
 
 
 public class SearchButton extends Button implements MouseListener {
@@ -50,7 +43,6 @@ public class SearchButton extends Button implements MouseListener {
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 

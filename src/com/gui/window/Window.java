@@ -2,6 +2,8 @@ package com.gui.window;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -31,11 +33,13 @@ public abstract class Window {
 	 * Creates a new Jframe, a new JPanel and sets default properties
 	 */
 	public void createWindow(){
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		window = new JFrame();
 		container = new JPanel(); 
 		
 		window.setContentPane(container);
 		window.setLocationRelativeTo(null);
+		window.setLocation((screen.width - window.getSize().width)/2,(screen.height - window.getSize().height)/2);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		container.setLayout(null);
 		container.setBackground(Color.white);
