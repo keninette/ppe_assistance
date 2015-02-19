@@ -1,4 +1,4 @@
-package viewTabs;
+package com.gui.viewTabs;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,7 +11,7 @@ import javax.swing.JTable;
 
 
 import com.bll.Employee;
-import com.mmi.TicketTableModel;
+import com.gui.TicketTableModel;
 
 public class ViewTickets extends ViewTab {
 	

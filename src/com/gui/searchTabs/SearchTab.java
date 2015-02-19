@@ -1,4 +1,4 @@
-package searchTabs;
+package com.gui.searchTabs;
 
 import java.awt.Color;
 import java.sql.ResultSet;
@@ -8,8 +8,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import com.bll.Employee;
+import com.gui.window.Window;
 
-import window.Window;
 
 public abstract class SearchTab {
 	protected 	JPanel 		jpTabContent;

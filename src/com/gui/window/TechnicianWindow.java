@@ -1,14 +1,14 @@
-package window;
+package com.gui.window;
 
 import java.awt.Color;
 
 import javax.swing.JTabbedPane;
 
-import searchTabs.SearchEquipment;
-import viewTabs.ViewTickets;
 
 
 import com.bll.Employee;
+import com.gui.searchTabs.SearchEquipment;
+import com.gui.viewTabs.ViewTickets;
 
 public class TechnicianWindow extends Window {
 	private ViewTickets 	viewTicketsTab;

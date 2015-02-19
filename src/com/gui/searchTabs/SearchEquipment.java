@@ -1,4 +1,4 @@
-package searchTabs;
+package com.gui.searchTabs;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -11,17 +11,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import viewTabs.ViewTab;
-import window.Window;
 
-import buttons.SearchButton;
 
 import com.bll.Employee;
 import com.bll.Equipment;
+import com.bll.enums.ComboType;
 import com.dal.Database;
-import combos.Combo;
+import com.gui.buttons.SearchButton;
+import com.gui.combos.Combo;
+import com.gui.viewTabs.ViewTab;
+import com.gui.window.Window;
 
-import enums.ComboType;
 
 public class SearchEquipment extends SearchTab {
 

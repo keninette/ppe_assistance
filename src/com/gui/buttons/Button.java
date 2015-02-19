@@ -1,8 +1,9 @@
-package buttons;
+package com.gui.buttons;
 
 import javax.swing.JButton;
 
-import window.Window;
+import com.gui.window.Window;
+
 
 
 

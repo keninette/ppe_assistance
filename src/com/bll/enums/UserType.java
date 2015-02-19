@@ -1,4 +1,4 @@
-package enums;
+package com.bll.enums;
 
 public enum UserType {
 	USER_TECH(1),

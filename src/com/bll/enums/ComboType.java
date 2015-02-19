@@ -1,4 +1,4 @@
-package enums;
+package com.bll.enums;
 
 public enum ComboType {
 	COMBO_BRAND("brand"),

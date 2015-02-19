@@ -1,4 +1,4 @@
-package buttons;
+package com.gui.buttons;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,8 +8,9 @@ import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
-import searchTabs.SearchTab;
-import viewTabs.ViewTab;
+import com.gui.searchTabs.SearchTab;
+import com.gui.viewTabs.ViewTab;
+
 
 
 

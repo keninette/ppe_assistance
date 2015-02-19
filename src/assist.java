@@ -1,7 +1,7 @@
-import window.LoginWindow;
-import window.Window;
 
 import com.bll.Employee;
+import com.gui.window.LoginWindow;
+import com.gui.window.Window;
 
 
 public class assist {

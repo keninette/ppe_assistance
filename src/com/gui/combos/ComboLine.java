@@ -1,4 +1,4 @@
-package combos;
+package com.gui.combos;
 
 public class ComboLine {
 	private int 	itemId;

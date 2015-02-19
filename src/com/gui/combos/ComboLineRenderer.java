@@ -1,4 +1,4 @@
-package combos;
+package com.gui.combos;
 
 import java.awt.Component;
 

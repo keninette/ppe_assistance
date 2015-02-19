@@ -1,4 +1,4 @@
-package viewTabs;
+package com.gui.viewTabs;
 
 import java.awt.Color;
 import java.sql.ResultSet;
@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import window.Window;
 
 import com.bll.Employee;
+import com.gui.window.Window;
 
 public abstract class ViewTab {
 	protected 	JPanel 		jpTabContent;

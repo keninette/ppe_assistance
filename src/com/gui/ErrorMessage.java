@@ -1,4 +1,4 @@
-package com.mmi;
+package com.gui;
 
 import java.awt.Color;
 import java.awt.Font;

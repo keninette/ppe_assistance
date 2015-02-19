@@ -1,4 +1,4 @@
-package com.mmi;
+package com.gui;
 
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;

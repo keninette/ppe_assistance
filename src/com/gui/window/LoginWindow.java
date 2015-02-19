@@ -1,15 +1,15 @@
-package window;
+package com.gui.window;
 
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 
-import buttons.Button;
-import buttons.ConnectButton;
 
 import com.bll.Employee;
-import com.mmi.ErrorMessage;
+import com.gui.ErrorMessage;
+import com.gui.buttons.Button;
+import com.gui.buttons.ConnectButton;
 
 public class LoginWindow extends Window {
 	
