@@ -11,18 +11,18 @@ import com.dal.Database;
  * Classe contenant toutes les informations et méthodes d'un ticket
  */
 public class Ticket {
-	private int 	numTicket;
-	//private GregorianCalendar openDateTime;
-	//private GregorianCalendar closeDateTime;
-	private String 	incidentDescription;
-	private String 	solutionDescription;
-	private int 	numIncidentType;
-	private int 	numSolutionType;
-	private int 	numTicketLevel;
-	private int 	numEquipment;
-	private boolean solved;
-	private ArrayList<Employee> collEmployee;
-	//private HashSet<Intervention> collIntervention;
+	private int 					numTicket;
+	//private GregorianCalendar 	openDateTime;
+	//private GregorianCalendar 	closeDateTime;
+	private String 					incidentDescription;
+	private String 					solutionDescription;
+	//private IncidentType			incidentType;
+	//private SolutionType 			solutionType;
+	//private TicketLevel			ticketLevel;
+	private boolean 				solved;
+	private ArrayList<Employee> 	collEmployee;
+	//private ArrayList<Intervention> collIntervention;
+	private	Equipment				equipment;
 	
 	/**
 	 * Constructeur n'attendant pas de paramètres
@@ -30,40 +30,25 @@ public class Ticket {
 	public Ticket() {
 		this.numTicket = 0;
 		this.incidentDescription = "";
-		this.numIncidentType = 0;
 		this.solutionDescription = "";
-		this.numSolutionType = 0;
-		this.numTicketLevel = 0;
 		this.solved = false;
 	}
 	
 	/**
-	 * Constructeur n'attendant avec paramètre
-	 * @param : (int) pnIdTicket : numTicket de ticket
+	 * Class constructor
 	 */	
-	public Ticket (int pnIdTicket){
-		Database oDbCon = new Database();
-		String sQuery = "SELECT * " +
-						"FROM 	ticket " +
-						"WHERE 	numTicket = ?";
-		String tTable[][] = {{"int",String.valueOf(pnIdTicket)}};
-		oDbCon.connect();
-		ResultSet rs = oDbCon.executePreparedQuery(sQuery, tTable);
+	public Ticket	(int pnNumTicket, String psIncidentDescription, int pnNumIncidentType, String psSolutionDescription
+					, int pnNumSolutionType, int pnNumTicketLevel, boolean pbSolved){
 		
-		try {
-			if(rs.first()){
-				this.numTicket = rs.getInt("numTicket");
-				this.incidentDescription = rs.getString("incidentDescription");
-				this.numIncidentType = rs.getInt("numIncidentType");
-				this.solutionDescription = rs.getString("solutionDescription");
-				this.numSolutionType = rs.getInt("numSolutionType");
-				this.collEmployee = this.findTicketTechnicians(pnIdTicket);
-			}
-		} catch(SQLException e){
-			System.out.println(e.getMessage());
-		}
-		oDbCon.disconnect();
-	}
+		this.numTicket = pnNumTicket;
+		this.incidentDescription = psIncidentDescription;
+		this.numIncidentType = pnNumIncidentType;
+		this.solutionDescription = psSolutionDescription;
+		this.numSolutionType = pnNumSolutionType;
+		this.numTicketLevel = pnNumTicketLevel;
+		this.solved = pbSolved;
+		this.collEmployee = this.findTicketTechnicians(pnNumTicket);
+	}	
 	
 	public ArrayList<Employee> findTicketTechnicians(int pnIdTicket){
 		ArrayList<Employee> collEmployee = new ArrayList<Employee>();
@@ -83,6 +68,11 @@ public class Ticket {
 		}
 		oDbCon.disconnect();
 		return collEmployee;
+	}
+	
+	public Equipment findTicketEquipment(){
+		
+		return new Equipment();
 	}
 	
 	// *************** getters ***************

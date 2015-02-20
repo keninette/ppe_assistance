@@ -18,7 +18,7 @@ public class TicketTableModel extends AbstractTableModel {
 	public TicketTableModel(Employee poUser) {
 		super();
 		this.user = poUser;
-		this.collTickets = this.user.findEmployeeTickets(this.user.getNumEmployee());
+		this.collTickets = this.user.findEmployeeTickets(this.user.getNumEmployee(),10);
 	}
 	
 	@Override
@@ -55,7 +55,6 @@ public class TicketTableModel extends AbstractTableModel {
 				return null;
 		}
 		return null;
-
 	}
 	
 	@Override

@@ -5,13 +5,14 @@ import java.sql.ResultSet;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 
 import com.bll.Employee;
 import com.gui.window.Window;
 
 public abstract class ViewTab {
-	protected 	JPanel 		jpTabContent;
+	protected 	JPanel 		jpTabContainer; 	// JPanel returned to tabs.add(), contains all the other elements	
 	protected 	ImageIcon 	icon;
 	protected	Window 		window;
 	
@@ -27,9 +28,9 @@ public abstract class ViewTab {
 	 * Set all tabs general properties
 	 */
 	public void setTab(){
-		jpTabContent = new JPanel();
-		jpTabContent.setLayout(null);
-		jpTabContent.setBackground(Color.WHITE);
+		jpTabContainer = new JPanel();
+		jpTabContainer.setLayout(null);
+		jpTabContainer.setBackground(Color.WHITE);
 	}
 	
 	

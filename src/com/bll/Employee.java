@@ -102,16 +102,24 @@ public class Employee {
 		return this.connected?1:0;
 	}
 	
-	public ArrayList<Ticket> findEmployeeTickets(int pnIdEmployee) {
+	public ArrayList<Ticket> findEmployeeTickets(int pnIdEmployee, int limit) {
 		// Variables declaration
 		ArrayList<Ticket> 	collTickets 	= new ArrayList<Ticket>();
 		Database 			oDbCon			= new Database();
 		String 				sQuery 			= 	"SELECT 	tp.numTicket, " +
-												"			t.solved " +
+												"			t.openDateTime, " +
+												" 			t.closeDateTime, " +
+												"			t.incidentDescription, " +
+												"			t.solutionDescription, " +
+												"			t.solved, " +
+												"			t.numSolutionType, " +
+												"			t.numIncidentType, " +
+												"			t.numTicketLevel, " +
+												"			t.numEquipment " + 	
 												"FROM 		technician_per_ticket tp " +
 												"LEFT JOIN 	ticket t " +
 												"ON 		(t.numTicket = tp.numTicket) " +
-												"WHERE	numTechnician = ?";
+												"WHERE		numTechnician = ?";
 		String 				tTable[][]		= {{"int",String.valueOf(pnIdEmployee)}};
 		ResultSet 			rs;
 		// Connect to Database
