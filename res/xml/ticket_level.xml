@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ticket_level>
+  <item num="1">Basique</item>
+  <item num="2">Intervention à distance</item>
+  <item num="3">Intervention matérielle ou réinstallation lourde</item>
+  <item num="4">Adaptation des comptes-rendus ou frais de visite</item>
+</ticket_level>

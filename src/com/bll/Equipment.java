@@ -17,9 +17,20 @@ public class Equipment {
 	//private ArrayList<Component> 	components;
 	
 	public Equipment(){
+		numEquipment = 0;
+		label = null;
+		serialNumber = null;
+		purchaseDate = null;
+		originalComponent = true;
 		
 	}
 	
+	/************** getters ***************/
+	public int getNumEquipment() {
+		return numEquipment;
+	}
+	
+	/************** setters ***************/
 	
 
 	

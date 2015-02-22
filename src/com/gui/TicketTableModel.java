@@ -37,11 +37,11 @@ public class TicketTableModel extends AbstractTableModel {
 			case 0:
 				return this.collTickets.get(rowIndex).getNumTicket();
 			case 1:
-				return this.collTickets.get(rowIndex).getNumIncidentType() +this.collTickets.get(rowIndex).getIncidentDescription();
+				//return this.collTickets.get(rowIndex).getNumIncidentType() +this.collTickets.get(rowIndex).getIncidentDescription();
 			case 2:
 				return "";
 			case 3:
-				switch(this.collTickets.get(rowIndex).getNumTicketLevel()) {
+				/*switch(this.collTickets.get(rowIndex).getNumTicketLevel()) {
 					case 1:
 						return(new String("Basique"));
 					case 2:
@@ -50,7 +50,7 @@ public class TicketTableModel extends AbstractTableModel {
 						return(new String("Interv. mat/install"));
 					case 4:
 						return(new String("Applis web"));	
-				}
+				}*/
 			case 4:
 				return null;
 		}

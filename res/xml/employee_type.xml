@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<employee_type>
+  <item num="1">Technicien</item>
+  <item num="2">Visiteur médical</item>
+  <item num="3">Administrateur</item>
+</employee_type>

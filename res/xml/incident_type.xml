@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incident_type>
+  <item num="1">Batterie défectueuse</item>
+  <item num="2">Perte de chargeur</item>
+  <item num="3">Virus ou malwares</item>
+</incident_type>

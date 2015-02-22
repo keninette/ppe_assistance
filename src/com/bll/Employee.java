@@ -129,7 +129,7 @@ public class Employee {
 		try {
 			if (rs.next()){
 				if (! rs.getBoolean("solved")) {
-					collTickets.add(new Ticket(rs.getInt("numTicket")));
+					//collTickets.add(new Ticket(rs.getInt("numTicket"), rs.getString("incidentDescription"), ));
 				}
 			}
 		} catch (SQLException e) {

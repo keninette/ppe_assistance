@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 
 
 import com.bll.Employee;
-import com.bll.enums.ComboType;
+import com.bll.enums.Categories;
 import com.dal.Database;
 import com.gui.buttons.SearchButton;
 import com.gui.combos.Combo;
@@ -63,7 +63,7 @@ public class SearchEquipment extends SearchTab {
 		// JButton
 		sbSearchButton.setBounds(680,50,30,30);
 		// Fill comboBoxes
-		cbBrand.fillComboBox(ComboType.COMBO_BRAND.toString());
+		cbBrand.fillComboBox(Categories.CAT_BRAND.toString());
 		// Add components to JPanel
 		this.jpSearchFields.add(lbSearch);
 		this.jpSearchFields.add(lbSerialNumber);

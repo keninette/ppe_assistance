@@ -4,6 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.bll.categories.IncidentType;
+import com.bll.categories.SolutionType;
+import com.bll.categories.TicketLevel;
 import com.dal.Database;
 
 
@@ -16,9 +19,9 @@ public class Ticket {
 	//private GregorianCalendar 	closeDateTime;
 	private String 					incidentDescription;
 	private String 					solutionDescription;
-	//private IncidentType			incidentType;
-	//private SolutionType 			solutionType;
-	//private TicketLevel			ticketLevel;
+	private IncidentType			incidentType;
+	private SolutionType 			solutionType;
+	private TicketLevel				ticketLevel;
 	private boolean 				solved;
 	private ArrayList<Employee> 	collEmployee;
 	//private ArrayList<Intervention> collIntervention;
@@ -31,23 +34,28 @@ public class Ticket {
 		this.numTicket = 0;
 		this.incidentDescription = "";
 		this.solutionDescription = "";
+		this.incidentType = null;
+		this.solutionType = null;
+		this.ticketLevel = null;
 		this.solved = false;
+		this.equipment = null;
 	}
 	
 	/**
 	 * Class constructor
 	 */	
 	public Ticket	(int pnNumTicket, String psIncidentDescription, int pnNumIncidentType, String psSolutionDescription
-					, int pnNumSolutionType, int pnNumTicketLevel, boolean pbSolved){
+					, int pnNumSolutionType, int pnNumTicketLevel, int pnNumEquipment, boolean pbSolved){
 		
 		this.numTicket = pnNumTicket;
 		this.incidentDescription = psIncidentDescription;
-		this.numIncidentType = pnNumIncidentType;
 		this.solutionDescription = psSolutionDescription;
-		this.numSolutionType = pnNumSolutionType;
-		this.numTicketLevel = pnNumTicketLevel;
+		this.incidentType = new IncidentType(pnNumIncidentType);
+		this.solutionType = new SolutionType(pnNumSolutionType);
+		this.ticketLevel = new TicketLevel(pnNumTicketLevel);
 		this.solved = pbSolved;
 		this.collEmployee = this.findTicketTechnicians(pnNumTicket);
+		this.equipment = this.findTicketEquipment(pnNumEquipment);
 	}	
 	
 	public ArrayList<Employee> findTicketTechnicians(int pnIdTicket){
@@ -70,8 +78,25 @@ public class Ticket {
 		return collEmployee;
 	}
 	
-	public Equipment findTicketEquipment(){
-		
+	public Equipment findTicketEquipment(int pnNumEquipment){
+		Database oDbCon 	= new Database();
+		String sQuery 		=	"SELECT * " +
+								"FROM 	equipment " +
+								"WHERE	numEquipment = ?";
+		String tTable[][] 	= {{"int",String.valueOf(pnNumEquipment)}};
+		oDbCon.connect();
+		ResultSet rs = oDbCon.executePreparedQuery(sQuery, tTable);
+		try {
+			if (rs.first()) {
+				Equipment equip = new Equipement(rs.getInt("numEquipement"), rs.getString("label"), rs.getString("serialNumber")
+												,rs.getDate("purchaseDate"), rs.getDate("warrantyDate"), rs.getString("originalComponents")
+												, rs.getInt("umSupplier"), rs.getInt("numEmployee"), rs.getInt("numBrand"),rs.getString("photo"));
+				
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		oDbCon.disconnect();
 		return new Equipment();
 	}
 	
@@ -85,17 +110,17 @@ public class Ticket {
 	}
 	
 	public int getNumIncidentType()	{
-		return this.numIncidentType;
+		return this.incidentType.getNum();
 	}
 	
 	// TODO : date ouverture
 	
 	public int getNumTicketLevel() {
-		return this.numTicketLevel;
+		return this.ticketLevel.getNum();
 	}
 	
 	public int getNumEquipment() {
-		return this.numEquipment;
+		return this.equipment.getNumEquipment();
 	}
 	
 	public boolean getSolved(){

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component_type>
+  <item num="1">Carte mère</item>
+  <item num="2">Carte graphique</item>
+  <item num="3">Barette mémoire RAM 4Go</item>
+  <item num="4">Clavier intégré</item>
+  <item num="5">Souris</item>
+  <item num="6">Processeur</item>
+  <item num="7">Disque dur</item>
+  <item num="8">Lecteur/graveur CD</item>
+  <item num="9">Lecteur/graveur DVD</item>
+  <item num="10">Lecteur de cartes</item>
+  <item num="11">Ecran</item>
+  <item num="12">Clavier</item>
+  <item num="13">Pad</item>
+  <item num="14">Webcam intégrée</item>
+</component_type>

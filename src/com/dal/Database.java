@@ -95,7 +95,6 @@ public class Database {
 		PreparedStatement 	st = null;
 		//Date d;
 		int i = 0, j = pTable.length, k=1;
-		
 		try {
 			st = con.prepareStatement(psQuery);
 			
