@@ -6,10 +6,6 @@ import java.awt.Container;
 import javax.swing.JComponent;
 import javax.swing.border.LineBorder;
 
-
-
-
-
 public class Tools {
 	
 	

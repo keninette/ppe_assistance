@@ -100,7 +100,7 @@ public class Ticket {
 		return new Equipment();
 	}
 	
-	// *************** getters ***************
+	/*************** getters ***************/
 	public int getNumTicket() {
 		return this.numTicket;
 	}

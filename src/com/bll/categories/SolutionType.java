@@ -1,7 +1,7 @@
 package com.bll.categories;
 
-import com.bll.JdomXml;
 import com.bll.enums.Categories;
+import com.dal.JdomXml;
 
 public class SolutionType extends Category {
 	

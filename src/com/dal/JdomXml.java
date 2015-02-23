@@ -1,4 +1,4 @@
-package com.bll;
+package com.dal;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,7 +16,6 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 import com.bll.enums.Categories;
-import com.dal.Database;
 
 
 /**
@@ -30,7 +29,7 @@ public class JdomXml {
 	 * @param cat : (Categories) a member of Enum Categories
 	 */
 	public static void xmlCreate(Categories cat){
-		Database	odbCon	= 	new Database(); 	
+		Database	db	= 	new Database(); 	
 		ResultSet	rs;
 		
 		// Create document
@@ -39,8 +38,8 @@ public class JdomXml {
 		document = new Document(root);
 		
 		// Get database entries and create document content
-		odbCon.connect();
-		rs = getData(cat.toString(), odbCon);
+		db.connect();
+		rs = getData(cat.toString(), db);
 		try {
 			while(rs.next()){
 				item = new Element("item");
@@ -63,10 +62,10 @@ public class JdomXml {
 	 */
 	public static ResultSet getData(String rootName, Database odbCon){
 		ResultSet	rs 		= 	null;
-		String		sQuery	= 	"SELECT * "+
+		String		query	= 	"SELECT * "+
 								"FROM 	" +rootName;
 		
-		rs = odbCon.executeQuery(sQuery);
+		rs = odbCon.executeQuery(query);
 		return rs;
 	}
 	
