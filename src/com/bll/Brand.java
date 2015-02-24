@@ -18,10 +18,10 @@ public class Brand {
 	
 	/**
 	 * Class constructor (initialized)
-	 * @param pnNumBrand
-	 * @param psLabel
-	 * @param psSupportPhone
-	 * @param psSupportMail
+	 * @param int numBrand
+	 * @param String label
+	 * @param String supportPhone
+	 * @param String supportMail
 	 */
 	public Brand(int numBrand, String label, String supportPhone, String supportMail ) {
 		this.numBrand = numBrand;

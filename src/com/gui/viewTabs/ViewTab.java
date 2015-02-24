@@ -12,36 +12,54 @@ import com.bll.Employee;
 import com.gui.window.Window;
 
 public abstract class ViewTab {
-	protected 	JPanel 		jpTabContainer; 	// JPanel returned to tabs.add(), contains all the other elements	
+	protected 	JPanel 		tabContainer; 	// JPanel returned to tabs.add(), contains all the other elements	
 	protected 	ImageIcon 	icon;
 	protected	Window 		window;
 	
 	/**
 	 * Auto create all tab components
-	 * @param pUser : (Employee) user associated to window
-	 * @return JPanel : (JPanel) panel to be used in tab creation
+	 * @param Employee user
+	 * @return JPanel
 	 */
-	protected abstract JPanel createTabComponents(Employee pUser);
+	protected abstract JPanel createTabComponents(Employee user);
 	
 	
 	/**
 	 * Set all tabs general properties
 	 */
 	public void setTab(){
-		jpTabContainer = new JPanel();
-		jpTabContainer.setLayout(null);
-		jpTabContainer.setBackground(Color.WHITE);
+		tabContainer = new JPanel();
+		tabContainer.setLayout(null);
+		tabContainer.setBackground(Color.WHITE);
 	}
-	
-	
-	/*************** getters ***************/
-	
-	/**
-	 * Getter for icon
-	 * @return : (ImageIcon) tab icon
-	 */
-	public ImageIcon getIcon(){
+
+	/**************** getters & setters **************/
+	public JPanel getTabContainer() {
+		return tabContainer;
+	}
+
+
+	public void setTabContainer(JPanel tabContainer) {
+		this.tabContainer = tabContainer;
+	}
+
+
+	public ImageIcon getIcon() {
 		return icon;
 	}
 
+
+	public void setIcon(ImageIcon icon) {
+		this.icon = icon;
+	}
+
+
+	public Window getWindow() {
+		return window;
+	}
+
+
+	public void setWindow(Window window) {
+		this.window = window;
+	}
 }

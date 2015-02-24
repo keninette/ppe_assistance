@@ -14,6 +14,12 @@ public abstract class BasicRequests {
 	private static Database db = new Database();
 	private static ResultSet rs;
 	
+	/**
+	 * Create instance of an object to be casted into right class
+	 * @param String tableName
+	 * @param int numEntry
+	 * @return Object 
+	 */
 	public static Object createInstance(String tableName, int numEntry) {
 		String		numColumnName 	= 	new String("num" +tableName.substring(0,1).toUpperCase() +tableName.substring(1, tableName.length()));	
 		String 		query 			= 	"SELECT	* " +
@@ -52,6 +58,12 @@ public abstract class BasicRequests {
 	
 	/*************** TICKETS ***************/
 	// TODO : requete a revoir
+	/**
+	 * Get user's tickets
+	 * @param int numEmployee
+	 * @param int limit
+	 * @return ArrayList<Ticket> collTickets
+	 */
 	public static ArrayList<Ticket> getUserTickets(int numEmployee, int limit){
 		ArrayList<Ticket> 	collTickets 	= new ArrayList<Ticket>();
 		String 				query 			= 	"SELECT 	tp.numTicket, " +
@@ -90,6 +102,11 @@ public abstract class BasicRequests {
 		return collTickets;
 	}
 	
+	/**
+	 * Get number of user's currently opened tickets
+	 * @param int numEmployee
+	 * @return int
+	 */
 	public static int getUserOpenedTicketsNumber(int numEmployee) {
 		String t[][] 	= 	{{"int",String.valueOf(numEmployee)}};
 		String query 	= 	"SELECT 	COUNT(*)	AS ticketNb " + 

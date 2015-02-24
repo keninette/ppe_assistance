@@ -18,10 +18,10 @@ public class Supplier {
 	
 	/**
 	 * Class constructor initialized
-	 * @param pnNumSupplier
-	 * @param psLabel
-	 * @param psPhone
-	 * @param psMail
+	 * @param int numSupplier
+	 * @param String label
+	 * @param String phone
+	 * @param String mail
 	 */
 	public Supplier(int numSupplier, String label, String phone, String mail) {
 		this.numSupplier = numSupplier;

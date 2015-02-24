@@ -10,11 +10,7 @@ public class Database {
 	private Connection con;
 	
 	/**
-	 * Contructeur
-	 * Features :
-	 * 	- initialise les variables de connexion à la base de données
-	 * @param : none
-	 * @return: none
+	 * Class constructor
 	 */
 	public Database(){
 		url			= "jdbc:mysql://localhost/ppe_assistance";
@@ -24,29 +20,21 @@ public class Database {
 	}
 	
 	/**
-	 * Features :
-	 * 	- connexion à la base de données
-	 * 	- gestion des exceptions
-	 * @param : none
-	 * @return 
+	 * Establish connection with database
 	 * @return: boolean
 	 */
 	public boolean connect() {
 		try{
 			con = DriverManager.getConnection(url, login, password);
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			System.out.println("[Error Database.connect()] " +e.getMessage());
 			con=null;
 		}
 		return (con==null?false:true);
 	}
 		
 	/**
-	 * Features :
-	 * 	- déconnexion à la base de données
-	 * 	- gestion des exceptions
-	 * @param : none
-	 * @return: none
+	 * Disconnection from database
 	 */	
 	public void disconnect() {
 		try {
@@ -54,23 +42,21 @@ public class Database {
 				con.close();
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			System.out.println("Error Database.disconnect()] " +e.getMessage());
 		}
 	}
 	
 	/**
-	 * Features :
-	 * 	- effectue une requête non préparée à la base de données
-	 * 	- gestion des exceptions
-	 * @param : none
-	 * @return: ResultSet
+	 * Execute a simple query 
+	 * @param String query
+	 * @return: ResultSet rs
 	 */	
 	
-	public ResultSet executeQuery(String psQuery) {
+	public ResultSet executeQuery(String query) {
 		ResultSet rs = null;
 		try {
 			Statement st = con.createStatement();
-			rs = st.executeQuery(psQuery);
+			rs = st.executeQuery(query);
 		}
 		catch (SQLException e) {
 			System.out.println("[Erreur Database.executeQuery()]" +e.getMessage());
@@ -81,22 +67,19 @@ public class Database {
 	}
 	
 	/**
-	 * Features :
-	 * 	- effectue une requête préparée à la base de données
-	 * 	- gestion des exceptions
-	 * @param : 
-	 * 	- String psQuerry : requête(avec des points d'interrogations pour chaque paramètre)
-	 * 	- String pTable[][] : tableau de chaînes contenant les paramètres de la requête(première colonne : type du paramètre(int, String), deuxième colonne : valeur du paramètre)
-	 * @return: ResultSet(résultats de la requête)
-	 */	
-	
-	public ResultSet executePreparedQuery(String psQuery, String pTable[][]) {
+	 * Execute prepared query
+	 * @param String query
+	 * @param String t[][]
+	 * @return ResultSet rs
+	 */
+	public ResultSet executePreparedQuery(String query, String t[][]) {
+		// t[parameter class][parameter value]
 		ResultSet 			rs = null;
 		PreparedStatement 	st = null;
 		//Date d;
-		int i = 0, j = pTable.length, k=1;
+		int i = 0, j = t.length, k=1;
 		try {
-			st = con.prepareStatement(psQuery);
+			st = con.prepareStatement(query);
 			
 			/**
 			 * Pour récuperer chaque paramètre il faut parcourir toutes les lignes du tableau.
@@ -106,12 +89,12 @@ public class Database {
 			 */	
 	
 			for (i=0; i<j; i++){
-				switch(pTable[i][0]){
+				switch(t[i][0]){
 					case "int" : 				
-						st.setInt(k, Integer.parseInt(pTable[i][1]));
+						st.setInt(k, Integer.parseInt(t[i][1]));
 						break;
 					case "String" :
-						st.setString(k, pTable[i][1]);
+						st.setString(k, t[i][1]);
 						break;
 					case "Date" :
 						//d = Tools.stringToDate("dd-MM-yy",pTable[i][1]);
@@ -133,8 +116,6 @@ public class Database {
 			System.out.println("[Error Database.executePreparedQuery] " +e.getMessage());
 		}
 		return rs;
-		
 	}
-	
 } 
 

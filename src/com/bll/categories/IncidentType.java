@@ -16,10 +16,10 @@ public class IncidentType extends Category {
 	/**
 	 * Class constructor with parameter
 	 * Get label from .xml to avoid connection to database
-	 * @param pnNumIncidentType : (int) numIncidentType
+	 * @param int numIncidentType
 	 */
-	public IncidentType(int pnNumIncidentType) {
-		this.num = pnNumIncidentType;
-		this.label = JdomXml.xmlGetLabel(Categories.CAT_INCIDENTTYPE.toString(), pnNumIncidentType);
+	public IncidentType(int numIncidentType) {
+		this.num = numIncidentType;
+		this.label = JdomXml.xmlGetLabel(Categories.CAT_INCIDENTTYPE.toString(), numIncidentType);
 	}
 }

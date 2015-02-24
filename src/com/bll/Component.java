@@ -28,13 +28,13 @@ public class Component {
 	
 	/**
 	 * Class constructor (initialized)
-	 * @param numComponent
-	 * @param label
-	 * @param serialNumber
-	 * @param numComponentType
-	 * @param numSupplier
-	 * @param numBrand
-	 * @param numEquipment
+	 * @param int numComponent
+	 * @param String label
+	 * @param String serialNumber
+	 * @param int numComponentType
+	 * @param int numSupplier
+	 * @param int numBrand
+	 * @param int umEquipment
 	 */
 	public Component(int numComponent, String label, String serialNumber, int numComponentType, 
 						int numSupplier, int numBrand, int numEquipment) {

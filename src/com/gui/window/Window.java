@@ -30,7 +30,7 @@ public abstract class Window {
 	public abstract void createComponents();
 	
 	/**
-	 * Creates a new Jframe, a new JPanel and sets default properties
+	 * Create a new Jframe, a new JPanel and set default properties
 	 */
 	public void createWindow(){
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -44,12 +44,34 @@ public abstract class Window {
 		container.setLayout(null);
 		container.setBackground(Color.white);
 	}
+	
+	 /************** getters & setters ***************/
+	public JFrame getWindow() {
+		return window;
+	}
+
+	public void setWindow(JFrame window) {
+		this.window = window;
+	}
+
+	public JPanel getContainer() {
+		return container;
+	}
+
+	public void setContainer(JPanel container) {
+		this.container = container;
+	}
+
+	public Employee getUser() {
+		return user;
+	}
+
+	public void setUser(Employee user) {
+		this.user = user;
+	}
 
 	/**
-	 * @feature : add all fields for technician
-	 * @param : none
-	 * @return : none
-	 */
+	 
 	public void addTechFields(){
 		JTabbedPane tabs = new JTabbedPane();
 		// Customizing JTabbedPane
@@ -93,22 +115,6 @@ public abstract class Window {
 		
 		jpTabContent.add(lbTemp);
 		return(jpTabContent);
-	}
-	
-	/**
-	 * Getter for user
-	 * @return : Employee
-	 */
-	public Employee getUser(){
-		return this.user;
-	}
-	
-	/**
-	 * Getter for window
-	 * @return : (Window) window 
-	 */
-	public JFrame getWindow(){
-		return this.window;
-	}
+	}*/
 }
 

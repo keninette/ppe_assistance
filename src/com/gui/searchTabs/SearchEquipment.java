@@ -25,139 +25,139 @@ import com.gui.window.Window;
 public class SearchEquipment extends SearchTab {
 
 	/**
-	 * Class constructor
+	 * Class constructor (initialized)
 	 */
-	public SearchEquipment(Window pWindow){
+	public SearchEquipment(Window window){
 		this.setTab();
 		this.setIcon(new ImageIcon("res/img/icons/icon_equipment.png"));
-		this.setWindow(pWindow);
+		this.setWindow(window);
 	}
 	
 	@Override
-	public JPanel createTabComponents(Employee pUser) {
-		JLabel 			lbSearch 		= new JLabel("Recherche d'un matériel");
-		JLabel			lbSerialNumber 	= new JLabel("Par numéro de série");
-		JTextField		tfSerialNumber	= new JTextField();
-		JLabel			lbBrand			= new JLabel("Par marque");
-		Combo			cbBrand			= new Combo();
-		JLabel			lbMedicalRep	= new JLabel("Par visiteur médical");
-		JTextField		tfMedicalRep	= new JTextField();
-		SearchButton	sbSearchButton	= new SearchButton(this,"","search");
+	public JPanel createTabComponents(Employee user) {
+		JLabel 			searchLabel 		= new JLabel("Recherche d'un matériel");
+		JLabel			serialNbLabel 		= new JLabel("Par numéro de série");
+		JTextField		serialNbField		= new JTextField();
+		JLabel			brandLabel			= new JLabel("Par marque");
+		Combo			brandCombo			= new Combo();
+		JLabel			medicalRepLabel		= new JLabel("Par visiteur médical");
+		JTextField		medicalRepField		= new JTextField();
+		SearchButton	searchButton		= new SearchButton(this,"","search");
 	
 		
 		// Customize components
 		// JLabel
-		lbSearch.setBounds(20,0,500,40);
-		lbSearch.setFont(new Font("Arial",Font.BOLD, 20));
-		lbSerialNumber.setBounds(20,40,200,20);
-		lbBrand.setBounds(240,40,200,20);
-		lbMedicalRep.setBounds(460,40,200,20);
+		searchLabel.setBounds(20,0,500,40);
+		searchLabel.setFont(new Font("Arial",Font.BOLD, 20));
+		serialNbLabel.setBounds(20,40,200,20);
+		brandLabel.setBounds(240,40,200,20);
+		medicalRepLabel.setBounds(460,40,200,20);
 		// JTextField
-		tfSerialNumber.setBounds(20,60,200,20);
-		tfSerialNumber.setName("serialNumber");
-		tfMedicalRep.setBounds(460,60,200,20);
-		tfMedicalRep.setName("medicalRep");
+		serialNbField.setBounds(20,60,200,20);
+		serialNbField.setName("serialNumber");
+		medicalRepField.setBounds(460,60,200,20);
+		medicalRepField.setName("medicalRep");
 		// Combo
-		cbBrand.setBounds(240,60,200,20);
-		cbBrand.setName("brand");
+		brandCombo.setBounds(240,60,200,20);
+		brandCombo.setName("brand");
 		// JButton
-		sbSearchButton.setBounds(680,50,30,30);
+		searchButton.setBounds(680,50,30,30);
 		// Fill comboBoxes
-		cbBrand.fillComboBox(Categories.CAT_BRAND.toString());
+		brandCombo.fillComboBox(Categories.CAT_BRAND);
 		// Add components to JPanel
-		this.jpSearchFields.add(lbSearch);
-		this.jpSearchFields.add(lbSerialNumber);
-		this.jpSearchFields.add(tfSerialNumber);
-		this.jpSearchFields.add(lbBrand);
-		this.jpSearchFields.add(cbBrand);
-		this.jpSearchFields.add(lbMedicalRep);
-		this.jpSearchFields.add(tfMedicalRep);
-		this.jpSearchFields.add(sbSearchButton);
+		this.searchFields.add(searchLabel);
+		this.searchFields.add(serialNbLabel);
+		this.searchFields.add(serialNbField);
+		this.searchFields.add(brandLabel);
+		this.searchFields.add(brandCombo);
+		this.searchFields.add(medicalRepLabel);
+		this.searchFields.add(medicalRepField);
+		this.searchFields.add(searchButton);
 		
-		return jpTabContent;
+		return tabContent;
 	}
 
 	@Override
 	public void triggerSearchAction() {
 		ResultSet	rs				= 	null;
-		String 		sSerialNumber 	= 	null;
-		String 		sMedicalRep		= 	null;
-		int			nBrand			= 	0;
-		String		sWhereClauseE	= 	new String("WHERE 1 = 1");
-		Database	odbCon			= 	new Database();
+		String 		serialNumber 	= 	null;
+		String 		medicalRep		= 	null;
+		int			numBrand		= 	0;
+		String		whereClause		= 	new String("WHERE 1 = 1");
+		Database	db				= 	new Database();
 		int			i = 0;
 		
 		// Delete all results from precedent 
-		this.jpSearchResult.setVisible(false);
-		this.jpSearchResult.removeAll();
+		this.searchResult.setVisible(false);
+		this.searchResult.removeAll();
 		
 		// Get search fields values
-		Component t[] = this.jpSearchFields.getComponents();
+		Component t[] = this.searchFields.getComponents();
 		for (Component c : t){
 			if (c.getName() != null){
 				switch(c.getName()) {
 					case "serialNumber":
-						sSerialNumber = new String(((JTextField) c).getText().toString());
+						serialNumber = new String(((JTextField) c).getText().toString());
 						break;
 					//case "medicalRep":
 						//break;
 					case "brand":
-						nBrand = ((ComboLine)((JComboBox) c).getSelectedItem()).getItemId();
+						numBrand = ((ComboLine)((JComboBox) c).getSelectedItem()).getItemId();
 						break;
 				}
 			}
 		}
 			
 		// Write Where clause depending on search fields filled + add parameters for query
-		sWhereClauseE += (sSerialNumber== null || sSerialNumber.isEmpty()) ? "" : " AND e.serialNumber = ? ";
-		sWhereClauseE += nBrand == 0 ? "" : " AND e.numBrand = ?";
-		String	tTableE[][] = 	{{sSerialNumber== null || sSerialNumber.isEmpty() ? "none" : "String", sSerialNumber}
-								,{nBrand == 0 ? "none" : "int", Integer.toString(nBrand)}};
+		whereClause += (serialNumber== null || serialNumber.isEmpty()) ? "" : " AND e.serialNumber = ? ";
+		whereClause += numBrand == 0 ? "" : " AND e.numBrand = ?";
+		String	te[][] = 	{{serialNumber== null || serialNumber.isEmpty() ? "none" : "String", serialNumber}
+								,{numBrand == 0 ? "none" : "int", Integer.toString(numBrand)}};
 		
 		
 		// Execute query
-		if (!sWhereClauseE.equals("WHERE 1 = 1")) {
-			odbCon.connect();
-			rs = this.findEquipment(sWhereClauseE, tTableE, odbCon);
+		if (!whereClause.equals("WHERE 1 = 1")) {
+			db.connect();
+			rs = this.findEquipment(whereClause, te, db);
 			// Display results
 			try {
 				while(rs.next()){
-					String tTableC[][] = {{"int", Integer.toString(rs.getInt("numEquipment"))}};
-					this.displaySearchResults(rs, findComponent("WHERE numEquipment = ?", tTableC, odbCon),i);
+					String tc[][] = {{"int", Integer.toString(rs.getInt("numEquipment"))}};
+					this.displaySearchResults(rs, findComponent("WHERE numEquipment = ?", tc, db),i);
 					i++;
 				}
 			} catch (SQLException e) {
 				System.out.println("[Error in SearchEquipment.triggerSearchAction()] " +e.getMessage());
 			}
-			odbCon.disconnect();
+			db.disconnect();
 		}
 		
 		// use results
-		this.jpSearchResult.setVisible(true);
+		this.searchResult.setVisible(true);
 }
 
 	@Override
 	protected void displaySearchResults(ResultSet rsE, ResultSet rsC, int k) {
 		JPanel		resultContainer			= 	new JPanel();
-		ImageIcon	imgEIcon 				= 	null;
-		JLabel		lbEIcon					= 	new JLabel();
-		JLabel		lbEBrand				= 	null;
-		JLabel		lbEName					= 	null;
-		JLabel		lbESerialNumber			= 	null;
-		JLabel		lbOriginalComponents 	= 	null;
-		JLabel		lbESupplier				= 	null;
+		ImageIcon	img		 				= 	null;
+		JLabel		labelForImg				= 	new JLabel();
+		JLabel		brand				= 	null;
+		JLabel		name					= 	null;
+		JLabel		serialNumber			= 	null;
+		JLabel		originalComponents 	= 	null;
+		JLabel		supplier				= 	null;
 		int 		i = 0, j=1;
 		
 		// Create new content
 		try {
 			// Equipment info
 			if(rsE.first()){
-				imgEIcon 				= 	new ImageIcon("res/img/equipment/" +rsE.getString("photo"));
-				lbEBrand				=	new JLabel("Marque : " +rsE.getString("bLabel"));
-				lbEName 				= 	new JLabel("Modèle : " +rsE.getString("label"));
-				lbESerialNumber 		= 	new JLabel("Numéro de série : " +rsE.getString("serialNumber"));
-				lbOriginalComponents	= 	new JLabel("Composants d'origine : " +(rsE.getInt("originalComponents") == 1 ? "oui" : "non"));
-				lbESupplier				=	new JLabel("Fournisseur : " +rsE.getString("bLabel"));
+				img 				= 	new ImageIcon("res/img/equipment/" +rsE.getString("photo"));
+				brand				=	new JLabel("Marque : " +rsE.getString("bLabel"));
+				name 				= 	new JLabel("Modèle : " +rsE.getString("label"));
+				serialNumber 		= 	new JLabel("Numéro de série : " +rsE.getString("serialNumber"));
+				originalComponents	= 	new JLabel("Composants d'origine : " +(rsE.getInt("originalComponents") == 1 ? "oui" : "non"));
+				supplier			=	new JLabel("Fournisseur : " +rsE.getString("bLabel"));
 				
 				while(rsC.next()){
 					if (i < 8) {
@@ -174,33 +174,34 @@ public class SearchEquipment extends SearchTab {
 		// Customize new content
 		resultContainer.setBounds(0,k*210,1220,210);
 		resultContainer.setLayout(null);
-		lbEIcon.setIcon(imgEIcon);
-		lbEIcon.setBounds(0,0,200,200);
-		lbEBrand.setBounds(250,20,150,20);
-		lbEName.setBounds(250,40,150,20);
-		lbESerialNumber.setBounds(250,60,150,20);
-		lbOriginalComponents.setBounds(250,80,150,20);
-		lbESupplier.setBounds(250,100,200,20);
+		labelForImg.setIcon(img);
+		labelForImg.setBounds(0,0,200,200);
+		brand.setBounds(250,20,150,20);
+		name.setBounds(250,40,150,20);
+		serialNumber.setBounds(250,60,150,20);
+		originalComponents.setBounds(250,80,150,20);
+		supplier.setBounds(250,100,200,20);
 		
 		// Add content to JPanel
-		resultContainer.add(lbEIcon);
-		resultContainer.add(lbEBrand);
-		resultContainer.add(lbEName);
-		resultContainer.add(lbESerialNumber);
-		resultContainer.add(lbOriginalComponents);
-		resultContainer.add(lbESupplier);
-		this.jpSearchResult.add(resultContainer);
+		resultContainer.add(labelForImg);
+		resultContainer.add(brand);
+		resultContainer.add(name);
+		resultContainer.add(serialNumber);
+		resultContainer.add(originalComponents);
+		resultContainer.add(supplier);
+		this.searchResult.add(resultContainer);
 	}
 	
 	/**
 	 * Execute a query to find equipment with custom where clause
-	 * @param psWhereClause : (String) custom where clause
-	 * @param tTable : (String tTable[][]) : contains info to use Database.executePreparedQuery()
-	 * @return ResultSet : all equipments matching query
+	 * @param String whereClause
+	 * @param String t[][] 
+	 * @param Database db
+	 * @return ResultSet rs
 	 */
-	private ResultSet findEquipment(String psWhereClause, String tTable[][], Database odbCon){
+	private ResultSet findEquipment(String whereClause, String t[][], Database db){
 		ResultSet	rs 		= null;
-		String		sQuery	= 	"SELECT 	e.numEquipment, " +
+		String		query	= 	"SELECT 	e.numEquipment, " +
 								"			e.label, " +
 								"			e.serialNumber, " +
 								"			e.purchaseDate	AS 	ePurchaseDate, " +
@@ -214,19 +215,20 @@ public class SearchEquipment extends SearchTab {
 								"ON 		b.numBrand = e.numBrand " +
 								"LEFT JOIN	supplier s " +
 								"ON 		s.numSupplier = e.numSupplier ";
-		rs = odbCon.executePreparedQuery(sQuery +psWhereClause +" ORDER BY e.label", tTable);
+		rs = db.executePreparedQuery(query +whereClause +" ORDER BY e.label", t);
 		return rs;
 	}
 	
 	/**
 	 * Execute a query to find components with custom where clause
-	 * @param psWhereClause : (String) custom where clause
-	 * @param tTable : (String tTable[][]) : contains info to use Database.executePreparedQuery()
-	 * @return ResultSet : all components matching query
+	 * @param String whereClause
+	 * @param String t[][]
+	 * @param Database db
+	 * @return ResultSet rs
 	 */
-	private ResultSet findComponent(String psWhereClause, String tTable[][], Database odbCon){
+	private ResultSet findComponent(String psWhereClause, String t[][], Database db){
 		ResultSet	rs 		= null;
-		String 		sQuery	= 	"SELECT		c.numComponent, " +
+		String 		query	= 	"SELECT		c.numComponent, " +
 								"			c.label, " +
 								"			c.serialNumber, " +
 								" 			c.purchaseDate, " +
@@ -241,7 +243,7 @@ public class SearchEquipment extends SearchTab {
 								"ON			ct.numComponentType = c.numComponentType " +
 								"LEFT JOIN	supplier s " +
 								"ON			s.numSupplier = c.numSupplier ";
-		rs = odbCon.executePreparedQuery(sQuery +psWhereClause, tTable);
+		rs = db.executePreparedQuery(query +psWhereClause, t);
 		return rs;
 	}	
 }

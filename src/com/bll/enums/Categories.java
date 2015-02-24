@@ -24,7 +24,7 @@ public enum Categories {
 	
 	/**
 	 * To get enum member value
-	 * @return : value
+	 * @return : String value
 	 */
 	public String toString(){
 		return value;

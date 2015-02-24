@@ -34,6 +34,16 @@ public class Equipment {
 	
 	/**
 	 * Class constructor (initialized)
+	 * @param int numEquipment
+	 * @param String label
+	 * @param String serialNumber
+	 * @param Date purchaseDate
+	 * @param Date warrantyDate
+	 * @param boolean originalComponents
+	 * @param int numSupplier
+	 * @param int numEmployee
+	 * @param int numBrand
+	 * @param String photo
 	 */
 	public Equipment(int numEquipment, String label, String serialNumber, Date purchaseDate, Date warrantyDate, boolean originalComponents,
 						int numSupplier, int numEmployee, int numBrand, String photo) {

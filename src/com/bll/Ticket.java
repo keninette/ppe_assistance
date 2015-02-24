@@ -44,27 +44,28 @@ public class Ticket {
 	/**
 	 * Class constructor
 	 */	
-	public Ticket	(int pnNumTicket, String psIncidentDescription, int pnNumIncidentType, String psSolutionDescription
-					, int pnNumSolutionType, int pnNumTicketLevel, int pnNumEquipment, boolean pbSolved){
+	public Ticket	(int numTicket, String incidentDescription, int numIncidentType, 
+						String solutionDescription, int numSolutionType, int numTicketLevel,
+						int numEquipment, boolean solved){
 		
-		this.numTicket = pnNumTicket;
-		this.incidentDescription = psIncidentDescription;
-		this.solutionDescription = psSolutionDescription;
-		this.incidentType = new IncidentType(pnNumIncidentType);
-		this.solutionType = new SolutionType(pnNumSolutionType);
-		this.ticketLevel = new TicketLevel(pnNumTicketLevel);
-		this.solved = pbSolved;
-		this.collEmployee = this.findTicketTechnicians(pnNumTicket);
-		this.equipment = this.findTicketEquipment(pnNumEquipment);
+		this.numTicket = numTicket;
+		this.incidentDescription = incidentDescription;
+		this.solutionDescription = solutionDescription;
+		this.incidentType = new IncidentType(numIncidentType);
+		this.solutionType = new SolutionType(numSolutionType);
+		this.ticketLevel = new TicketLevel(numTicketLevel);
+		this.solved = solved;
+		this.collEmployee = this.findTicketTechnicians(numTicket);
+		this.equipment = this.findTicketEquipment(numEquipment);
 	}	
 	
-	public ArrayList<Employee> findTicketTechnicians(int pnIdTicket){
+	public ArrayList<Employee> findTicketTechnicians(int numTicket){
 		ArrayList<Employee> collEmployee = new ArrayList<Employee>();
 		Database oDbCon 	= new Database();
 		String sQuery 		=	"SELECT numTechnician " +
 								"FROM 	technician_per_ticket " +
 								"WHERE	numTicket = ?";
-		String tTable[][] 	= {{"int",String.valueOf(pnIdTicket)}};
+		String tTable[][] 	= {{"int",String.valueOf(numTicket)}};
 		oDbCon.connect();
 		ResultSet rs = oDbCon.executePreparedQuery(sQuery, tTable);
 		try {

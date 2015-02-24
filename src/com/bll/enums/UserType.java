@@ -9,12 +9,15 @@ public enum UserType {
 	
 	/**
 	 * Enum constructor
-	 * @return 
 	 */
-	UserType(int pValue){
-		this.value = pValue;
+	UserType(int value){
+		this.value = value;
 	}
 	
+	/**
+	 * get enum value
+	 * @return int value
+	 */
 	public int toInt(){
 		return value;
 	}

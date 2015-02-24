@@ -15,7 +15,7 @@ public class EmployeeType extends Category{
 	/**
 	 * Class constructor with parameter
 	 * Get label from .xml to avoid connection to database
-	 * @param numEmployeeType
+	 * @param int numEmployeeType
 	 */
 	public EmployeeType(int numEmployeeType) {
 		this.num = numEmployeeType;

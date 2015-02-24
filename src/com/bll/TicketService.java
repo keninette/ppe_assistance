@@ -14,7 +14,7 @@ public class TicketService {
 	
 	/**
 	 * Class constructor  
-	 * @param numEmployee
+	 * @param int numEmployee
 	 */
 	public TicketService(int numEmployee){
 		Database 	db		= new Database();

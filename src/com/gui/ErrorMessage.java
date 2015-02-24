@@ -9,26 +9,36 @@ import javax.swing.JLabel;
 
 public class ErrorMessage extends JLabel {
 	
-	public ErrorMessage(String psLabel, String psName){
-		super(psLabel);
-		super.setName(psName);
+	/**
+	 * Class constructor
+	 * @param label
+	 * @param name
+	 */
+	public ErrorMessage(String label, String name){
+		super(label);
+		super.setName(name);
 		this.setForeground(Color.red);
 		this.setFont(new Font("", Font.PLAIN, 10));
 		this.setVisible(false);
 	}
-	
+	/*
+	/**
+	 * Get name
+	 * @return String
+	 
 	public String getName(){
 		return(super.getName());
 	}
 	
-	public void setLabel(String psLabel){
-		super.setText(psLabel);
+	/**
+	 * Set name
+	 
+	public void setLabel(String label){
+		super.setText(label);
 		
 	}
 	
-	public void setName(String psName){
-		super.setName(psName);
-	}
-	
-	
+	public void setName(String name){
+		super.setName(name);
+	}*/
 }

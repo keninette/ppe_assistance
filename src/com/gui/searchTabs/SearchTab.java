@@ -11,9 +11,9 @@ import com.gui.window.Window;
 
 
 public abstract class SearchTab {
-	protected 	JPanel 		jpTabContent;
-	protected	JPanel		jpSearchFields;
-	protected	JPanel		jpSearchResult;
+	protected 	JPanel 		tabContent;
+	protected	JPanel		searchFields;
+	protected	JPanel		searchResult;
 	private 	ImageIcon 	icon;
 	private		Window 		window;
 	
@@ -22,33 +22,33 @@ public abstract class SearchTab {
 	 * Set all tabs general properties
 	 */
 	public void setTab(){
-		jpTabContent = new JPanel();
-		jpTabContent.setLayout(null);
-		jpTabContent.setBackground(Color.WHITE);
+		tabContent = new JPanel();
+		tabContent.setLayout(null);
+		tabContent.setBackground(Color.WHITE);
 		
-		jpSearchFields = new JPanel();
-		jpSearchFields.setLayout(null);
-		jpSearchFields.setBackground(Color.WHITE);
-		jpSearchFields.setBounds(0,0,1310,200);
-		//jpSearchFields.setBackground(Color.blue);
+		searchFields = new JPanel();
+		searchFields.setLayout(null);
+		searchFields.setBackground(Color.WHITE);
+		searchFields.setBounds(0,0,1310,200);
+		//searchFields.setBackground(Color.blue);
 		
-		jpSearchResult = new JPanel();
-		jpSearchResult.setLayout(null);
-		jpSearchResult.setBackground(Color.WHITE);
-		jpSearchResult.setVisible(false);
-		jpSearchResult.setBounds(0,200,1310,550);
-		//jpSearchResult.setBackground(Color.red);
+		searchResult = new JPanel();
+		searchResult.setLayout(null);
+		searchResult.setBackground(Color.WHITE);
+		searchResult.setVisible(false);
+		searchResult.setBounds(0,200,1310,550);
+		//searchResult.setBackground(Color.red);
 		
-		jpTabContent.add(jpSearchFields);
-		jpTabContent.add(jpSearchResult);
+		tabContent.add(searchFields);
+		tabContent.add(searchResult);
 	}
 	
 	/**
 	 * Auto create all tab components
-	 * @param pUser : (Employee) user associated to window
-	 * @return JPanel : (JPanel) panel to be used in tab creation
+	 * @param Employee user
+	 * @return JPanel pan
 	 */
-	protected abstract JPanel createTabComponents(Employee pUser);
+	protected abstract JPanel createTabComponents(Employee user);
 	
 	/**
 	 * Define and create tab's search action
@@ -60,28 +60,50 @@ public abstract class SearchTab {
 	 * Display search results
 	 * This function displays one equipment and its components information
 	 * Call this function for every equipment you wish to display
-	 * @param rsE : (ResultSet) One Equipment resultSet
-	 * @param rsC : (ResultSet) That equipment's components ResulSet
+	 * @param ResultSet rsE
+	 * @param ResultSet rsC 
 	 */
 	protected abstract void displaySearchResults(ResultSet rsE, ResultSet rsC, int k);
 	
-	
-	/*************** getters ***************/
-	public Window getWindow() {
-		return window;
+	/*************** getters & setters **************/
+	public JPanel getTabContent() {
+		return tabContent;
 	}
-	
+
+	public void setTabContent(JPanel tabContent) {
+		this.tabContent = tabContent;
+	}
+
+	public JPanel getSearchFields() {
+		return searchFields;
+	}
+
+	public void setSearchFields(JPanel searchFields) {
+		this.searchFields = searchFields;
+	}
+
+	public JPanel getSearchResult() {
+		return searchResult;
+	}
+
+	public void setSearchResult(JPanel searchResult) {
+		this.searchResult = searchResult;
+	}
+
 	public ImageIcon getIcon() {
 		return icon;
 	}
 
-	/*************** setters ***************/
-	public void setWindow(Window pWindow) {
-		this.window = pWindow;
-	}
-
 	public void setIcon(ImageIcon icon) {
 		this.icon = icon;
-	}	
+	}
+
+	public Window getWindow() {
+		return window;
+	}
+
+	public void setWindow(Window window) {
+		this.window = window;
+	}
 }
 

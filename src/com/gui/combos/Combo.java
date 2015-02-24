@@ -5,22 +5,24 @@ import java.sql.SQLException;
 
 import javax.swing.JComboBox;
 
+import com.bll.enums.Categories;
 import com.dal.Database;
 
 public class Combo extends JComboBox {
 	
+	/**
+	 * Class constructor (uninitialized)
+	 */
 	public Combo(){
 		super();
 	}
 	
 	/**
-	 * 
-	 * @param psComboType
+	 * Add combo content
+	 * @param Categories cat
 	 */
-	public void fillComboBox(String psComboType){
-		String 		sQuery 			= 	new String("SELECT 	* FROM	" +psComboType +" ORDER BY label");
-		String		sIdColumnName 	=	new String("num" +Character.toUpperCase(psComboType.charAt(0)) 
-													+psComboType.substring(1, psComboType.length())); 	
+	public void fillComboBox(Categories cat){
+		String 		sQuery 			= 	new String("SELECT 	* FROM	" +cat.toString() +" ORDER BY label"); 	
 		Database	oDbCon			= 	new Database();;
 		
 		this.setRenderer(new ComboLineRenderer());
@@ -31,7 +33,7 @@ public class Combo extends JComboBox {
 		ResultSet rs = oDbCon.executeQuery(sQuery);
 		try {
 			while (rs.next()){
-				this.addItem(new ComboLine(rs.getInt(sIdColumnName),rs.getString("label")));
+				this.addItem(new ComboLine(rs.getInt(cat.getColumnName()),rs.getString("label")));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());

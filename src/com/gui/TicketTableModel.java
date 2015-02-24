@@ -5,20 +5,22 @@ import javax.swing.table.AbstractTableModel;
 
 import com.bll.Employee;
 import com.bll.Ticket;
+import com.dal.BasicRequests;
 
 
 public class TicketTableModel extends AbstractTableModel {
-	private final String titles[] = {"id", "Description", "Ouvert le", "Niveau", "Equipement"};
-	private Employee user;
-	private ArrayList<Ticket> collTickets = new ArrayList<Ticket>();
+	private final 	String 				titles[] = {"id", "Description", "Ouvert le", 
+														"Niveau", "Equipement"};
+	private 		Employee			user;
+	private 		ArrayList<Ticket> 	collTickets = new ArrayList<Ticket>();
 	
 	/**
-	 * Constructor without parameters
+	 * Class constructor
 	 */
-	public TicketTableModel(Employee poUser) {
+	public TicketTableModel(Employee user) {
 		super();
-		this.user = poUser;
-		this.collTickets = this.user.findEmployeeTickets(this.user.getNumEmployee(),10);
+		this.user = user;
+		this.collTickets = BasicRequests.getUserTickets(this.user.getNumEmployee(),10);
 	}
 	
 	@Override

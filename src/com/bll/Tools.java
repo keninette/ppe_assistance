@@ -10,30 +10,29 @@ public class Tools {
 	
 	
 	/**
-	 * Features : Changes the component to display an error
-	 *  - if pComponent is a ErrorMessage component : it becomes visible.
-	 *  - if pComponent is a TextField or PasswordField component : its border become red.
-	 * @param pComponent : JFrame Component
-	 * @return : none
+	 * Changes the component style to display an error
+	 *  - if c is a ErrorMessage component : it becomes visible.
+	 *  - if c is a TextField or PasswordField component : its border become red.
+	 * @param Component c
 	 */
-	public static void displayError(Component pComponent){
-		if (pComponent.getClass().toString().equals("class com.mmi.ErrorMessage")){
-			pComponent.setVisible(true);
+	public static void displayError(Component c){
+		if (c.getClass().toString().equals("class com.mmi.ErrorMessage")){
+			c.setVisible(true);
 		}
-		if (pComponent.getClass().toString().equals("class javax.swing.JTextField")	|| pComponent.getClass().toString().equals("class javax.swing.JPasswordField")	){
-			((JComponent) pComponent).setBorder(new LineBorder (Color.red));
+		if (c.getClass().toString().equals("class javax.swing.JTextField")	
+				|| c.getClass().toString().equals("class javax.swing.JPasswordField")	){
+			((JComponent) c).setBorder(new LineBorder (Color.red));
 		}
 	}
 	
 	/**
-	 * Features : removes any sign of error message on panel
+	 * Removes any sign of error message on panel
 	 *  - if it's a ErrorMessage component : sets it invisible
 	 *  - if it's a JPasswordField or JTextField : sets its border color to gray
-	 * @param jpTemp : JPanel
-	 * @return : none
+	 * @param JPanel pan
 	 */
-	public static void removeErrorMessages(Container jpTemp){
-		Component[] t = jpTemp.getComponents();
+	public static void removeErrorMessages(Container c){
+		Component[] t = c.getComponents();
 		
 		for (int i=0, j=t.length; i<j; i++){
 			// On rend les messages d'erreur invisibles
@@ -48,12 +47,12 @@ public class Tools {
 	
 	
 	/**
-	 * Feature : convertit une date selon le format demandé
-	 * @param String psFormat : format demandé
-	 * @param String psDate : date à convertir
-	 * @return Date dDate : date formatée 
+	 * Format a date
+	 * @param String format
+	 * @param String date
+	 * @return Date finalDdate
 	 */
-	/*public static Date stringToDate(String psDate){
+	/*public static Date stringToDate(String date){
 		/*DateFormat readFormat = new SimpleDateFormat("EEE MMM d HH:mm:ss zzz yyyy", Locale.ENGLISH);
 	    DateFormat writeFormat = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
 		

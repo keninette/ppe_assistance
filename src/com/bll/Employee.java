@@ -42,16 +42,16 @@ public class Employee {
 	
 	/**
 	 * Class constructor (initialized)
-	 * @param numEmployee
-	 * @param name
-	 * @param firstName
-	 * @param address
-	 * @param postalCode
-	 * @param town
-	 * @param phone
-	 * @param login
-	 * @param psw
-	 * @param connected
+	 * @param int numEmployee
+	 * @param String name
+	 * @param String firstName
+	 * @param String address
+	 * @param String postalCode
+	 * @param String town
+	 * @param String phone
+	 * @param String login
+	 * @param String psw
+	 * @param boolean connected
 	 */
 	public Employee(int numEmployee, String name, String firstName, String address, String postalCode, 
 						String town, String phone, String login, String psw, int numEmployeeType) {
@@ -72,9 +72,9 @@ public class Employee {
 	
 	/**
 	 * Check if connection info user has provided is right
-	 * Creates a new user
-	 * @param login
-	 * @param psw
+	 * Create a new user
+	 * @param String login
+	 * @param String psw
 	 * @return
 	 */
 	public int connectUser(String login, String psw){

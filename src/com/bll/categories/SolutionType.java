@@ -15,10 +15,10 @@ public class SolutionType extends Category {
 	
 	/**
 	 * Class constructor with parameter
-	 * @param pnNumSolutionType : (int) numSolutionType
+	 * @param int numSolutionType
 	 */
-	public SolutionType(int pnNumSolutionType){
-		this.num = pnNumSolutionType;
-		this.label = JdomXml.xmlGetLabel(Categories.CAT_SOLUTIONTYPE.toString(), pnNumSolutionType);
+	public SolutionType(int numSolutionType){
+		this.num = numSolutionType;
+		this.label = JdomXml.xmlGetLabel(Categories.CAT_SOLUTIONTYPE.toString(), numSolutionType);
 	}
 }

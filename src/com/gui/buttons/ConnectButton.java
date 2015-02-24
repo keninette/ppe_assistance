@@ -23,83 +23,86 @@ public class ConnectButton extends Button implements ActionListener {
 	
 	/**
 	 * Class constructor
-	 * @param pWindow : (Window) Window in which button is displayed
-	 * @param pLabel : (String) Button's label
+	 * @param Window
+	 * @param JLabel
 	 */
-	public ConnectButton(Window pWindow, String pLabel) {
-		super(pWindow, pLabel);
+	public ConnectButton(Window window, String label) {
+		super(window, label);
 		this.addActionListener(this);
 	}
 	
+	/**
+	 * Set button's action
+	 */
 	public void setAction() {
-		String 			sLogin = "", sPassword = "";
-		JTextField 		tfLogin = null;
-		JPasswordField 	pfPsw = null;
-		ErrorMessage 	emLogin = null;
-		ErrorMessage 	emPsw = null;
-		ErrorMessage 	emException = null;
-		int 			iConnected = 0;
-		Container 		jpContainer = super.window.getWindow().getContentPane();
+		String 			loginValue = null, pswValue = null;
+		JTextField 		loginField = null;
+		JPasswordField 	pswField = null;
+		ErrorMessage 	loginError = null;
+		ErrorMessage 	pswError = null;
+		ErrorMessage 	exceptionError = null;
+		int 			connected = 0;
+		Container 		container = super.window.getWindow().getContentPane();
 		
 		// Set all error messages invisible
-		Tools.removeErrorMessages(jpContainer);
+		Tools.removeErrorMessages(container);
 		
 		// Get the information user has provided and errorMessage's instances
-		Component[] t = jpContainer.getComponents();
+		Component[] t = container.getComponents();
 		for (Component c : t) {
 			if (c.getName() != null){
 				switch (c.getName()){
 					case "login" :
-						tfLogin = (JTextField) c;
-						sLogin = tfLogin.getText().toString();
+						loginField = (JTextField) c;
+						loginValue = loginField.getText().toString();
 						break;
 					case "password" :
-						pfPsw = (JPasswordField) c;
-						String sPassword2 = new String(pfPsw.getPassword());
-						sPassword=sPassword2;
+						pswField = (JPasswordField) c;
+						String psw2 = new String(pswField.getPassword());
+						pswValue = psw2;
 						break;
 					case "loginError" :
-						emLogin = (ErrorMessage) c;
+						loginError = (ErrorMessage) c;
 						break;
 					case "passError" :
-						emPsw = (ErrorMessage) c;
+						pswError = (ErrorMessage) c;
 						break;
 					case "exceptionError":
-						emException = (ErrorMessage) c;
+						exceptionError = (ErrorMessage) c;
 				}
 			}
 		}
 			
 		// Check the information user has provided and connect user
-		if (sLogin.length() == 0|| sPassword.length() == 0){
-				if (sLogin.length() == 0) {
-					Tools.displayError(emLogin);
-					Tools.displayError(tfLogin);
+		if (loginValue.length() == 0|| pswValue.length() == 0){
+				if (loginValue.length() == 0) {
+					Tools.displayError(loginError);
+					Tools.displayError(loginField);
 				} 
-				if (sPassword.length() == 0) {
-					Tools.displayError(emPsw);
-					Tools.displayError(pfPsw);
+				if (pswValue.length() == 0) {
+					Tools.displayError(pswError);
+					Tools.displayError(pswField);
 				}
 		} else {
-			iConnected = this.window.getUser().connectUser(sLogin, sPassword);
+			connected = this.window.getUser().connectUser(loginValue, pswValue);
 			/*
-			 * int iConnected : getUser() method return value
+			 * int connected : getUser() method return value
 			 * 		-1 : exception during connection
 			 * 		 0 : user not connected, wrong password or login 
 			 * 		 1 : user connected 
 			 */
-			if (iConnected == 0){
-				Tools.displayError(emLogin);
-				Tools.displayError(tfLogin);
-				Tools.displayError(emPsw);
-				Tools.displayError(pfPsw);
-				tfLogin.setText("");
-				pfPsw.setText("");
-			} else if (iConnected == 1) {
+			if (connected == 0){
+				Tools.displayError(loginError);
+				Tools.displayError(loginField);
+				Tools.displayError(pswError);
+				Tools.displayError(pswField);
+				loginField.setText("");
+				pswField.setText("");
+			} else if (connected == 1) {
 				this.window.getWindow().setVisible(false);
 				//Window newWindow = new Window(this.window.getUser());
 			} else {
-				Tools.displayError(emException);
+				Tools.displayError(exceptionError);
 			}
 		}		
 	}
@@ -113,7 +116,7 @@ public class ConnectButton extends Button implements ActionListener {
 	private void setTestAction() {
 		this.window.getUser().connectUser("jGilles", "test");
 		this.window.getWindow().setVisible(false);
-		if (this.window.getUser().getRights() == UserType.USER_TECH.toInt()){
+		if (this.window.getUser().getEmployeeType().getNum() == UserType.USER_TECH.toInt()){
 			new TechnicianWindow(this.window.getUser());
 		}
 	}

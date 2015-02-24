@@ -10,11 +10,11 @@ import com.gui.searchTabs.SearchTab;
 public class SearchButton extends Button implements MouseListener {
 	private SearchTab tab;
 	
-	public SearchButton(SearchTab pTab, String pLabel, String pName) {
-		super(pTab.getWindow(), "", pName);
+	public SearchButton(SearchTab tab, String label, String name) {
+		super(tab.getWindow(), "", name);
 		this.setIcon(new ImageIcon("res/img/icons/icon_search.png"));
 		this.addMouseListener(this);
-		this.tab = pTab;
+		this.tab = tab;
 	}
 
 	@Override

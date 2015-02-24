@@ -4,21 +4,17 @@ public abstract class Category {
 	int		num;
 	String	label;
 	
-	/************** getters ***************/
+	/*************** getters & setters ***************/
 	public int getNum() {
-		return this.num;
+		return num;
 	}
-	
+	public void setNum(int num) {
+		this.num = num;
+	}
 	public String getLabel() {
-		return this.label;
+		return label;
 	}
-	
-	/************** setters ***************/
-	public void setNum (int pnNum) {
-		num = pnNum;
-	}
-	
-	public void setLabel(String psLabel) {
-		label = psLabel;
+	public void setLabel(String label) {
+		this.label = label;
 	}
 }

@@ -16,7 +16,7 @@ public class TicketLevel extends Category {
 	/**
 	 * Class constructor with parameter
 	 * Get label from .xml to avoid another connection to database
-	 * @param numTicketLevel : (int) numTicketLevel
+	 * @param int numTicketLevel
 	 */
 	public TicketLevel(int numTicketLevel) {
 		this.num = numTicketLevel;

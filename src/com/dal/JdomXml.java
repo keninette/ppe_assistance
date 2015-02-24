@@ -26,7 +26,7 @@ public class JdomXml {
 	
 	/**
 	 * Create xml file according to category
-	 * @param cat : (Categories) a member of Enum Categories
+	 * @param Categories cat 
 	 */
 	public static void xmlCreate(Categories cat){
 		Database	db	= 	new Database(); 	
@@ -49,23 +49,23 @@ public class JdomXml {
 				item = null;
 			}
 		} catch (SQLException e) {
-			System.out.println("[Error JdomXml.constructor]" +e.getMessage());
+			System.out.println("[Error JdomXml.constructor] " +e.getMessage());
 		}
 		xmlSave(cat.toString());
 	}
 	
 	/**
 	 * Get all category entries from database
-	 * @param rootName : (String) category.toString() | name of table in database
-	 * @param odbCon : (Database) connection being used
-	 * @return
+	 * @param String rootName
+	 * @param Database db
+	 * @return ResultSet rs
 	 */
-	public static ResultSet getData(String rootName, Database odbCon){
+	public static ResultSet getData(String rootName, Database db){
 		ResultSet	rs 		= 	null;
 		String		query	= 	"SELECT * "+
 								"FROM 	" +rootName;
 		
-		rs = odbCon.executeQuery(query);
+		rs = db.executeQuery(query);
 		return rs;
 	}
 	
@@ -77,14 +77,14 @@ public class JdomXml {
 			XMLOutputter output = new XMLOutputter(Format.getPrettyFormat());
 			output.output(document, System.out);
 		} catch (java.io.IOException e){
-			System.out.println("[Error JdomXml.displayXml()]" +e.getMessage());
+			System.out.println("[Error JdomXml.displayXml()] " +e.getMessage());
 		}
 	}
 	
 	/**
 	 * Check in res/xml if file already exists or not
-	 * @param rootName : (String) name of xml file (without extension)
-	 * @return (boolean) : true (file already exists) or false (files doesn't exist) 
+	 * @param String rootName 
+	 * @return boolean
 	 */
 	public static boolean xmlExists(String rootName){
 		String 	filePath 	= new String("res/xml/" +rootName +".xml");
@@ -95,9 +95,9 @@ public class JdomXml {
 	
 	/**
 	 * Get label from selected item
-	 * @param rootName : (String) name of xml file (without extension)
-	 * @param numItem : (int) item's num
-	 * @return
+	 * @param String rootName
+	 * @param int numItem
+	 * @return String label
 	 */
 	public static String xmlGetLabel(String rootName, int numItem) {
 		SAXBuilder 	sxb 	= new SAXBuilder();
@@ -110,9 +110,9 @@ public class JdomXml {
 		try {
 			document = sxb.build(new File("res/xml/" +rootName +".xml")); 
 		} catch (IOException e) {
-			System.out.println("[Error IOException - JdomXml.xmlGetLabel]" +e.getMessage());
+			System.out.println("[Error IOException - JdomXml.xmlGetLabel] " +e.getMessage());
 		} catch (JDOMException e) {
-			System.out.println("[Error JDOMException - JdomXml.xmlGetLabel]" +e.getMessage());
+			System.out.println("[Error JDOMException - JdomXml.xmlGetLabel] " +e.getMessage());
 		}
 		
 		// Get all items and find the one with attribute num = numItem
@@ -130,8 +130,8 @@ public class JdomXml {
 	
 	/**
 	 * Remove selected xml
-	 * @param rootName : (String) name of xml file (without extension)
-	 * @return
+	 * @param String rootName
+	 * @return boolean
 	 */
 	public static boolean xmlRemove(String rootName) {
 		String 	filePath 	= new String("res/xml/" +rootName +".xml");
@@ -142,7 +142,7 @@ public class JdomXml {
 	
 	/**
 	 * Save xml file into res/xml/rootName.xml
-	 * @param rootName : name of file (without extension)
+	 * @param String rootName
 	 */
 	public static void xmlSave(String rootName) {
 		String file = new String("res/xml/" +rootName +".xml");

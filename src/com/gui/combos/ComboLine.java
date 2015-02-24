@@ -6,26 +6,20 @@ public class ComboLine {
 	
 	/**
 	 * Class constructor
-	 * @param pnLineItemId : (int) item id in database
-	 * @param psLineItemLabel : (String) item label
+	 * @param int lineItemId
+	 * @param String lineItemLabel
 	 */
-	public ComboLine(int pnItemId, String psItemLabel) {
-		itemId = pnItemId;
-		itemLabel = psItemLabel;
+	public ComboLine(int numItem, String itemLabel) {
+		this.itemId = numItem;
+		this.itemLabel = itemLabel;
 	}
 	
 	/*************** getters ***************/
 	
-	/**
-	 * getter for itemId
-	 */
 	public int getItemId(){
 		return itemId;
 	}
 	
-	/**
-	 * getter for itemLabel
-	 */
 	public String getItemLabel(){
 		return itemLabel;
 	}

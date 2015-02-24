@@ -14,7 +14,7 @@ import com.gui.buttons.ConnectButton;
 public class LoginWindow extends Window {
 	
 	/**
-	 * 	Class constructor
+	 * 	Class constructor 
 	 */
 	public LoginWindow() {
 		super.createWindow();
@@ -29,42 +29,42 @@ public class LoginWindow extends Window {
 	 *  Create all LoginWindow components and set components properties
 	 */
 	public void createComponents() {
-		Button 			btnConnect = new ConnectButton(this, "Connexion");
-		JTextField 		tfLogin = new JTextField();
-		JTextField 		tfPsw = new JPasswordField();
-		JLabel 			lbLogin =  new JLabel("Identifiant");
-		JLabel 			lbPsw = new JLabel("Mot de passe");
-		ErrorMessage 	emLoginError = new ErrorMessage("Identifiant non renseigné ou  incorrect", "loginError"); 
-		ErrorMessage 	emPassError = new ErrorMessage("Mot de passe non renseigné incorrect", "passError");
-		ErrorMessage 	emException = new ErrorMessage("Une erreur s'est produite pendant la connexion à la base de données", "exceptionError");
+		Button 			connectButton 	= new ConnectButton(this, "Connexion");
+		JTextField 		loginField		= new JTextField();
+		JTextField 		pswField 		= new JPasswordField();
+		JLabel 			loginLabel 		= new JLabel("Identifiant");
+		JLabel 			pswLabel		= new JLabel("Mot de passe");
+		ErrorMessage 	loginError 		= new ErrorMessage("Identifiant non renseigné ou  incorrect", "loginError"); 
+		ErrorMessage 	pswError 		= new ErrorMessage("Mot de passe non renseigné incorrect", "passError");
+		ErrorMessage 	exceptionError 	= new ErrorMessage("Une erreur s'est produite pendant la connexion à la base de données", "exceptionError");
 		
 		// customizing content
-		emException.setName("exceptionError");
-		emException.setBounds(40,0,350,20);
-		emLoginError.setBounds (150,50,200, 20);
-		emPassError.setBounds (150,100,200, 20);
+		exceptionError.setName("exceptionError");
+		exceptionError.setBounds(40,0,350,20);
+		loginError.setBounds (150,50,200, 20);
+		pswError.setBounds (150,100,200, 20);
 		
-		lbLogin.setBounds(10,30,100, 20);
-		lbPsw.setBounds(10,80,100, 20);
+		loginLabel.setBounds(10,30,100, 20);
+		pswLabel.setBounds(10,80,100, 20);
 		
-		tfLogin.setBounds(150,30,150, 20);
-		tfLogin.setName("login");
-		tfPsw.setBounds(150,80,150,20);
-		tfPsw.setName("password");
+		loginField.setBounds(150,30,150, 20);
+		loginField.setName("login");
+		pswField.setBounds(150,80,150,20);
+		pswField.setName("password");
 		
-		btnConnect.setBounds(285,132,100,30);
-		btnConnect.setEnabled(true);
-		super.window.getRootPane().setDefaultButton(btnConnect);
+		connectButton.setBounds(285,132,100,30);
+		connectButton.setEnabled(true);
+		super.window.getRootPane().setDefaultButton(connectButton);
 		
 		// adding content
-		super.container.add(emException);
-		super.container.add(lbLogin);
-		super.container.add(lbPsw);
-		super.container.add(tfLogin);
-		super.container.add(tfPsw);
-		super.container.add(emLoginError);
-		super.container.add(emPassError);		
-		super.container.add(btnConnect);
+		super.container.add(exceptionError);
+		super.container.add(loginLabel);
+		super.container.add(pswLabel);
+		super.container.add(loginField);
+		super.container.add(pswField);
+		super.container.add(loginError);
+		super.container.add(pswError);		
+		super.container.add(connectButton);
 		super.window.setVisible(true);
 	}
 }

@@ -15,10 +15,10 @@ public class ComponentType extends Category {
 	/**
 	 * Class constructor with parameter
 	 * Get label from .xml to avoid connection to database
-	 * @param pnNumIncidentType : (int) numComponentType
+	 * @param int numIncidentType
 	 */
-	public ComponentType(int pnNumComponentType) {
-		this.num = pnNumComponentType;
-		this.label = JdomXml.xmlGetLabel(Categories.CAT_COMPONENTTYPE.toString(), pnNumComponentType);
+	public ComponentType(int numComponentType) {
+		this.num = numComponentType;
+		this.label = JdomXml.xmlGetLabel(Categories.CAT_COMPONENTTYPE.toString(), numComponentType);
 	}
 }
