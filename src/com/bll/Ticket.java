@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import com.bll.categories.IncidentType;
 import com.bll.categories.SolutionType;
 import com.bll.categories.TicketLevel;
+import com.dal.BasicRequests;
 import com.dal.Database;
 
 
@@ -55,51 +56,9 @@ public class Ticket {
 		this.solutionType = new SolutionType(numSolutionType);
 		this.ticketLevel = new TicketLevel(numTicketLevel);
 		this.solved = solved;
-		this.collEmployee = this.findTicketTechnicians(numTicket);
-		this.equipment = this.findTicketEquipment(numEquipment);
+		this.collEmployee = BasicRequests.findTicketTechnicians(numTicket);
+		this.equipment = BasicRequests.findTicketEquipmentInfo(numEquipment);
 	}	
-	
-	public ArrayList<Employee> findTicketTechnicians(int numTicket){
-		ArrayList<Employee> collEmployee = new ArrayList<Employee>();
-		Database oDbCon 	= new Database();
-		String sQuery 		=	"SELECT numTechnician " +
-								"FROM 	technician_per_ticket " +
-								"WHERE	numTicket = ?";
-		String tTable[][] 	= {{"int",String.valueOf(numTicket)}};
-		oDbCon.connect();
-		ResultSet rs = oDbCon.executePreparedQuery(sQuery, tTable);
-		try {
-			while (rs.next()) {
-				collEmployee.add(new Employee(rs.getInt("numTechnician")));
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		oDbCon.disconnect();
-		return collEmployee;
-	}
-	
-	public Equipment findTicketEquipment(int pnNumEquipment){
-		Database oDbCon 	= new Database();
-		String sQuery 		=	"SELECT * " +
-								"FROM 	equipment " +
-								"WHERE	numEquipment = ?";
-		String tTable[][] 	= {{"int",String.valueOf(pnNumEquipment)}};
-		oDbCon.connect();
-		ResultSet rs = oDbCon.executePreparedQuery(sQuery, tTable);
-		try {
-			if (rs.first()) {
-				Equipment equip = new Equipement(rs.getInt("numEquipement"), rs.getString("label"), rs.getString("serialNumber")
-												,rs.getDate("purchaseDate"), rs.getDate("warrantyDate"), rs.getString("originalComponents")
-												, rs.getInt("umSupplier"), rs.getInt("numEmployee"), rs.getInt("numBrand"),rs.getString("photo"));
-				
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		oDbCon.disconnect();
-		return new Equipment();
-	}
 	
 	/*************** getters ***************/
 	public int getNumTicket() {

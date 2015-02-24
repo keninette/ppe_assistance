@@ -45,8 +45,8 @@ public class Equipment {
 	 * @param int numBrand
 	 * @param String photo
 	 */
-	public Equipment(int numEquipment, String label, String serialNumber, Date purchaseDate, Date warrantyDate, boolean originalComponents,
-						int numSupplier, int numEmployee, int numBrand, String photo) {
+	public Equipment(int numEquipment, String label, String serialNumber, Date purchaseDate, 
+						Date warrantyDate, boolean originalComponents, int numSupplier, int numEmployee, int numBrand, String photo) {
 		this.numEquipment = numEquipment;
 		this.label = label;
 		this.serialNumber = serialNumber;

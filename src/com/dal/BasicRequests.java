@@ -132,5 +132,60 @@ public abstract class BasicRequests {
 		return 0;		
 	}
 	
+	/**
+	 * Find all technicians who have operated on this ticket
+	 * @param  int numTicket
+	 * @return ArrayList<Employee>
+	 */
+	public static ArrayList<Employee> findTicketTechnicians(int numTicket){
+		ArrayList<Employee> collEmployee = new ArrayList<Employee>();
+		Database oDbCon 	= new Database();
+		String sQuery 		=	"SELECT 	* " +
+								"FROM 		technician_per_ticket tp " +
+								"LEFT JOIN 	employee e " +
+								"ON			e.numEmployee = tp.numTechnician " +
+								"WHERE	numTicket = ?";
+		String tTable[][] 	= {{"int",String.valueOf(numTicket)}};
+		oDbCon.connect();
+		ResultSet rs = oDbCon.executePreparedQuery(sQuery, tTable);
+		try {
+			while (rs.next()) {
+				collEmployee.add(new Employee(rs.getInt("numTechnician"), rs.getString("name"), rs.getString("fName"), 
+									rs.getString("address"), rs.getString("postalCode"), rs.getString("town"),
+									rs.getString("phone"), rs.getString("login"), rs.getString("psw"), rs.getInt("numEmployeeType")));
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		oDbCon.disconnect();
+		return collEmployee;
+	}
+	
+	/**
+	 * find all info about ticket's equipment
+	 * @param int umEquipment
+	 * @return
+	 */
+	public static Equipment findTicketEquipmentInfo(int numEquipment){
+		Database oDbCon 	= new Database();
+		String sQuery 		=	"SELECT * " +
+								"FROM 	equipment " +
+								"WHERE	numEquipment = ?";
+		String tTable[][] 	= {{"int",String.valueOf(numEquipment)}};
+		oDbCon.connect();
+		ResultSet rs = oDbCon.executePreparedQuery(sQuery, tTable);
+		try {
+			if (rs.first()) {
+				Equipment equip = new Equipment(rs.getInt("numEquipement"), rs.getString("label"), rs.getString("serialNumber")
+												,rs.getDate("purchaseDate"), rs.getDate("warrantyDate"), rs.getBoolean("originalComponents")
+												, rs.getInt("numSupplier"), rs.getInt("numEmployee"), rs.getInt("numBrand"),rs.getString("photo"));
+				
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		oDbCon.disconnect();
+		return new Equipment();
+	}
 	/*************** EQUIPEMENT  **************/
 }
