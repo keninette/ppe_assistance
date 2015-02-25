@@ -109,12 +109,13 @@ public abstract class BasicRequests {
 	 */
 	public static int getUserOpenedTicketsNumber(int numEmployee) {
 		String t[][] 	= 	{{"int",String.valueOf(numEmployee)}};
-		String query 	= 	"SELECT 	COUNT(*)	AS ticketNb " + 
+		String query 	= 	"SELECT 	COUNT(tp.numTicket)	AS ticketNb " +
 							"FROM 		technician_per_ticket tp " +
-							"LEFT JOIN	ticket t " +
+							"LEFT JOIN	ticket t " +	
+							"ON			t.numTicket = tp.numTicket " +
 							"WHERE		tp.numTechnician = ? " +
-							"AND		t.solved = false";
-		
+							"AND		t.solved = false " +
+							"GROUP BY	t.numTicket";
 		rs = null;
 		db.connect();
 		rs = db.executePreparedQuery(query,t);

@@ -7,11 +7,13 @@ import javax.swing.JTabbedPane;
 
 
 import com.bll.Employee;
+import com.gui.insertTabs.InsertTicketTab;
 import com.gui.searchTabs.SearchEquipment;
 import com.gui.viewTabs.ViewTickets;
 
 public class TechnicianWindow extends Window {
 	private ViewTickets 	viewTicketsTab;
+	private InsertTicketTab	insertTicketTab;
 	private SearchEquipment	searchEquipmentTab;
 	
 	public TechnicianWindow(Employee pUser){
@@ -27,6 +29,7 @@ public class TechnicianWindow extends Window {
 	public void createComponents() {
 		JTabbedPane tabs = new JTabbedPane();
 		viewTicketsTab = new ViewTickets();
+		insertTicketTab = new InsertTicketTab();
 		searchEquipmentTab = new SearchEquipment(this);
 		
 		tabs.setTabPlacement(2);
@@ -35,6 +38,7 @@ public class TechnicianWindow extends Window {
 		
 		// Adding tabs to JTabbedPane
 		tabs.addTab("", viewTicketsTab.getIcon(), viewTicketsTab.createTabComponents(super.user));
+		tabs.addTab("", insertTicketTab.getIcon(), insertTicketTab.createTabComponents(0));
 		tabs.addTab("", searchEquipmentTab.getIcon(), searchEquipmentTab.createTabComponents(super.user),null);
 		super.container.add(tabs);
 		super.window.setVisible(true);
