@@ -1,14 +1,11 @@
 package com.bll;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.bll.categories.IncidentType;
 import com.bll.categories.SolutionType;
 import com.bll.categories.TicketLevel;
 import com.dal.BasicRequests;
-import com.dal.Database;
 
 
 /**
@@ -25,7 +22,7 @@ public class Ticket {
 	private TicketLevel				ticketLevel;
 	private boolean 				solved;
 	private ArrayList<Employee> 	collEmployee;
-	//private ArrayList<Intervention> collIntervention;
+	private ArrayList<Intervention> collIntervention;
 	private	Equipment				equipment;
 	
 	/**
@@ -39,6 +36,8 @@ public class Ticket {
 		this.solutionType = null;
 		this.ticketLevel = null;
 		this.solved = false;
+		this.collEmployee = new ArrayList<Employee>();
+		this.collIntervention = new ArrayList<Intervention>();
 		this.equipment = null;
 	}
 	

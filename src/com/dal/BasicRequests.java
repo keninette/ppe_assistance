@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import com.bll.Brand;
 import com.bll.Employee;
 import com.bll.Equipment;
+import com.bll.Intervention;
 import com.bll.Supplier;
 import com.bll.Ticket;
 
@@ -188,5 +189,10 @@ public abstract class BasicRequests {
 		oDbCon.disconnect();
 		return new Equipment();
 	}
-	/*************** EQUIPEMENT  **************/
+	
+	public ArrayList<Intervention> getTicketInterventions(int numTicket) {
+		ArrayList<Intervention> interventions = new ArrayList<Intervention>();
+		
+		return interventions;
+	}
 }

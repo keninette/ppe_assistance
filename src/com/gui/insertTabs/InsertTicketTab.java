@@ -37,17 +37,17 @@ public class InsertTicketTab extends InsertTabs{
 		
 		// Customize fields
 		numTicketField.setVisible(false);
-		openDateLabel.setBounds(0,0,100,20);
-		openDateField.setBounds(0,110,150,20);
-		closeDateLabel.setBounds(0, 280, 100, 20);
-		closeDateField.setBounds(0, 390, 150, 20);
+		openDateLabel.setBounds(0,0,150,20);
+		openDateField.setBounds(160,0,150,20);
+		closeDateLabel.setBounds(320, 0, 150, 20);
+		closeDateField.setBounds(480, 0, 150, 20);
 		//ticketLevelLabel.setBounds(30,0,150,20);
-		incidentTypeLabel.setBounds(60, 0, 100, 20);
-		incidentTypeCombo.setBounds(60, 110, 150, 20);
-		incidentDescriptionLabel.setBounds(90, 0, 100, 20);
-		incidentDescriptionField.setBounds(90, 110, 400, 20);
-		solutionTypeLabel.setBounds(120, 0, 100, 20);
-		solutionTypeCombo.setBounds(120, 110, 150, 20);
+		incidentTypeLabel.setBounds(0, 60, 150, 20);
+		incidentTypeCombo.setBounds(160, 60, 150, 20);
+		incidentDescriptionLabel.setBounds(0, 90, 150, 20);
+		incidentDescriptionField.setBounds(160, 90, 400, 20);
+		solutionTypeLabel.setBounds(0, 120, 150, 20);
+		solutionTypeCombo.setBounds(160, 120, 150, 20);
 		
 		
 		// Fill fields with values
