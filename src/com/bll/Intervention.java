@@ -1,6 +1,7 @@
 package com.bll;
 
 import com.bll.categories.InterventionType;
+import com.dal.BasicQueries;
 
 public class Intervention {
 	private int 				numIntervention;
@@ -27,9 +28,9 @@ public class Intervention {
 	 * @param String description
 	 * @param int numInterventionType
 	 */
-	public Intervention(int numIntervention, Ticket ticket, String description, int numInterventionType) {
+	public Intervention(int numIntervention, int numTicket, String description, int numInterventionType) {
 		this.numIntervention = numIntervention;
-		this.ticket = ticket;
+		this.ticket = (Ticket) BasicQueries.createInstance("ticket", numTicket);
 		this.description = description;
 		this.interventionType = new InterventionType(numIntervention);
 	}

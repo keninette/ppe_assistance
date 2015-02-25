@@ -9,7 +9,7 @@ import javax.swing.JTable;
 
 
 import com.bll.Employee;
-import com.dal.BasicRequests;
+import com.dal.BasicQueries;
 import com.gui.TicketTableModel;
 
 public class ViewTickets extends ViewTab {
@@ -44,7 +44,7 @@ public class ViewTickets extends ViewTab {
 		TicketTableModel 	tableModel 	= new TicketTableModel(user);
 		JTable				t			= new JTable(tableModel);
 		JLabel 				welcomeMsg	= new JLabel("Bonjour " +user.getFirstName() +" " +user.getName() +" ! "
-													+"Vous avez " + BasicRequests.getUserOpenedTicketsNumber(user.getNumEmployee()) 
+													+"Vous avez " + BasicQueries.findUserOpenedTicketsNumber(user.getNumEmployee()) 
 													+" ticket(s) en cours."	);		
 
 		// Customize fields

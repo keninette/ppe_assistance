@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.bll.categories.EmployeeType;
-import com.dal.BasicRequests;
+import com.dal.BasicQueries;
 import com.dal.Database;
 
 public class Employee {
@@ -66,7 +66,7 @@ public class Employee {
 		this.psw = psw;
 		this.connected = false;
 		this.employeeType = new EmployeeType(numEmployeeType);
-		this.tickets = BasicRequests.getUserTickets(numEmployee,0);
+		this.tickets = BasicQueries.findUserTickets(numEmployee,0);
 	}
 	
 	

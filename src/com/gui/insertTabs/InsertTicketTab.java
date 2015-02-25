@@ -6,11 +6,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.bll.Ticket;
 import com.bll.enums.Categories;
+import com.dal.BasicQueries;
 import com.gui.combos.Combo;
 
 public class InsertTicketTab extends InsertTabs{
-	
+	private Ticket ticket;
 	
 	public InsertTicketTab() {
 		super.setTab();
@@ -19,18 +21,18 @@ public class InsertTicketTab extends InsertTabs{
 	@SuppressWarnings("null")
 	@Override
 	public JPanel createTabComponents(int numTicket) {
+		this.ticket = (Ticket) (numTicket == 0 ? new Ticket() : BasicQueries.createInstance("ticket",numTicket));
 		// Create all fields
 		JTextField 	numTicketField 	= new JTextField();
 		JLabel 		openDateLabel 	= new JLabel("Date d'ouverture"); 
 		JTextField 	openDateField 	= new JTextField();
 		JLabel		closeDateLabel	= new JLabel("Date de fermeture");
 		JTextField 	closeDateField 	= new JTextField();
-		JLabel		ticketLevelLabel 	= null;
+		JLabel		ticketLevelLabel 	= new JLabel("Niveau du ticket");
 		JLabel		incidentTypeLabel 	= new JLabel("Type d'incident");
 		Combo		incidentTypeCombo	= new Combo();
 		JLabel		incidentDescriptionLabel	= new JLabel("Description de l'incident");
 		JTextArea	incidentDescriptionField	= new JTextArea();
-		// Ajouter interventions
 		JLabel		solutionTypeLabel	= new JLabel("Solution type");
 		Combo		solutionTypeCombo	= new Combo();
 		// Ajouter équipement
@@ -41,7 +43,7 @@ public class InsertTicketTab extends InsertTabs{
 		openDateField.setBounds(160,0,150,20);
 		closeDateLabel.setBounds(320, 0, 150, 20);
 		closeDateField.setBounds(480, 0, 150, 20);
-		//ticketLevelLabel.setBounds(30,0,150,20);
+		ticketLevelLabel.setBounds(30,0,150,20);
 		incidentTypeLabel.setBounds(0, 60, 150, 20);
 		incidentTypeCombo.setBounds(160, 60, 150, 20);
 		incidentDescriptionLabel.setBounds(0, 90, 150, 20);
@@ -60,7 +62,7 @@ public class InsertTicketTab extends InsertTabs{
 		tabContainer.add(openDateField);
 		tabContainer.add(closeDateLabel);
 		tabContainer.add(closeDateField);
-		//tabContainer.add(ticketLevelLabel);
+		tabContainer.add(ticketLevelLabel);
 		tabContainer.add(incidentTypeLabel);
 		tabContainer.add(incidentTypeCombo);
 		tabContainer.add(incidentTypeCombo);

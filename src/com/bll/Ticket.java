@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.bll.categories.IncidentType;
 import com.bll.categories.SolutionType;
 import com.bll.categories.TicketLevel;
-import com.dal.BasicRequests;
+import com.dal.BasicQueries;
 
 
 /**
@@ -55,34 +55,91 @@ public class Ticket {
 		this.solutionType = new SolutionType(numSolutionType);
 		this.ticketLevel = new TicketLevel(numTicketLevel);
 		this.solved = solved;
-		this.collEmployee = BasicRequests.findTicketTechnicians(numTicket);
-		this.equipment = BasicRequests.findTicketEquipmentInfo(numEquipment);
+		this.collEmployee = BasicQueries.findTicketTechnicians(numTicket);
+		this.collIntervention = BasicQueries.findTicketInterventions(numTicket);
+		this.equipment = BasicQueries.findTicketEquipmentInfo(numEquipment);
+	}
+	
+	/*************** getters & setters ***************/
+	public int getNumTicket() {
+		return numTicket;
+	}
+
+	public void setNumTicket(int numTicket) {
+		this.numTicket = numTicket;
+	}
+
+	public String getIncidentDescription() {
+		return incidentDescription;
+	}
+
+	public void setIncidentDescription(String incidentDescription) {
+		this.incidentDescription = incidentDescription;
+	}
+
+	public String getSolutionDescription() {
+		return solutionDescription;
+	}
+
+	public void setSolutionDescription(String solutionDescription) {
+		this.solutionDescription = solutionDescription;
+	}
+
+	public IncidentType getIncidentType() {
+		return incidentType;
+	}
+
+	public void setIncidentType(IncidentType incidentType) {
+		this.incidentType = incidentType;
+	}
+
+	public SolutionType getSolutionType() {
+		return solutionType;
+	}
+
+	public void setSolutionType(SolutionType solutionType) {
+		this.solutionType = solutionType;
+	}
+
+	public TicketLevel getTicketLevel() {
+		return ticketLevel;
+	}
+
+	public void setTicketLevel(TicketLevel ticketLevel) {
+		this.ticketLevel = ticketLevel;
+	}
+
+	public boolean isSolved() {
+		return solved;
+	}
+
+	public void setSolved(boolean solved) {
+		this.solved = solved;
+	}
+
+	public ArrayList<Employee> getCollEmployee() {
+		return collEmployee;
+	}
+
+	public void setCollEmployee(ArrayList<Employee> collEmployee) {
+		this.collEmployee = collEmployee;
+	}
+
+	public ArrayList<Intervention> getCollIntervention() {
+		return collIntervention;
+	}
+
+	public void setCollIntervention(ArrayList<Intervention> collIntervention) {
+		this.collIntervention = collIntervention;
+	}
+
+	public Equipment getEquipment() {
+		return equipment;
+	}
+
+	public void setEquipment(Equipment equipment) {
+		this.equipment = equipment;
 	}	
 	
-	/*************** getters ***************/
-	public int getNumTicket() {
-		return this.numTicket;
-	}
-	
-	public String getIncidentDescription() {
-		return this.incidentDescription;
-	}
-	
-	public int getNumIncidentType()	{
-		return this.incidentType.getNum();
-	}
-	
-	// TODO : date ouverture
-	
-	public int getNumTicketLevel() {
-		return this.ticketLevel.getNum();
-	}
-	
-	public int getNumEquipment() {
-		return this.equipment.getNumEquipment();
-	}
-	
-	public boolean getSolved(){
-		return this.solved;
-	}
+
 }

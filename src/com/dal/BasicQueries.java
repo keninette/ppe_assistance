@@ -11,7 +11,7 @@ import com.bll.Intervention;
 import com.bll.Supplier;
 import com.bll.Ticket;
 
-public abstract class BasicRequests {
+public abstract class BasicQueries {
 	private static Database db = new Database();
 	private static ResultSet rs;
 	
@@ -23,9 +23,9 @@ public abstract class BasicRequests {
 	 */
 	public static Object createInstance(String tableName, int numEntry) {
 		String		numColumnName 	= 	new String("num" +tableName.substring(0,1).toUpperCase() +tableName.substring(1, tableName.length()));	
-		String 		query 			= 	"SELECT	* " +
-										"FROM " +tableName +
-										"WHERE "+numColumnName +" = ?";
+		String 		query 			= 	new String("SELECT	* " +
+													"FROM " +tableName +
+													"WHERE "+numColumnName +" = ?");
 		String		t[][]			=	{{"int",Integer.toString(numEntry)}};
 		
 		rs = null;
@@ -65,27 +65,27 @@ public abstract class BasicRequests {
 	 * @param int limit
 	 * @return ArrayList<Ticket> collTickets
 	 */
-	public static ArrayList<Ticket> getUserTickets(int numEmployee, int limit){
-		ArrayList<Ticket> 	collTickets 	= new ArrayList<Ticket>();
-		String 				query 			= 	"SELECT 	tp.numTicket, " +
-												"			tp.numTechnician, " +
-												"			t.openDateTime, " +
-												" 			t.closeDateTime, " +
-												"			t.incidentDescription, " +
-												"			t.solutionDescription, " +
-												"			t.solved, " +
-												"			t.numSolutionType, " +
-												"			t.numIncidentType, " +
-												"			t.numTicketLevel, " +
-												"			t.numEquipment " + 	
-												"FROM 		technician_per_ticket tp " +
-												"LEFT JOIN 	ticket t " +
-												"ON 		t.numTicket = tp.numTicket " +
-												"WHERE		tp.numTechnician = ? " +
-												"AND		t.solved = false " +
-												"ORDER BY	t.openDateTime DESC ";
+	public static ArrayList<Ticket> findUserTickets(int numEmployee, int limit){
+		ArrayList<Ticket> 	collTickets 	= 	new ArrayList<Ticket>();
+		String 				query 			= 	new String("SELECT 		tp.numTicket, " +
+															"			tp.numTechnician, " +
+															"			t.openDateTime, " +
+															" 			t.closeDateTime, " +
+															"			t.incidentDescription, " +
+															"			t.solutionDescription, " +
+															"			t.solved, " +
+															"			t.numSolutionType, " +
+															"			t.numIncidentType, " +
+															"			t.numTicketLevel, " +
+															"			t.numEquipment " + 	
+															"FROM 		technician_per_ticket tp " +
+															"LEFT JOIN 	ticket t " +
+															"ON 		t.numTicket = tp.numTicket " +
+															"WHERE		p.numTechnician = ? " +
+															"AND		t.solved = false " +
+															"ORDER BY	t.openDateTime DESC ");
 		query += limit == 0 ? "" : "LIMIT ?";
-		String 				t[][]		= {{"int",String.valueOf(numEmployee)},{limit == 0 ? "none" : "int",String.valueOf(limit)}};
+		String 	t[][] = {{"int",String.valueOf(numEmployee)},{limit == 0 ? "none" : "int",String.valueOf(limit)}};
 		
 		rs = null;
 		db.connect();
@@ -108,15 +108,15 @@ public abstract class BasicRequests {
 	 * @param int numEmployee
 	 * @return int
 	 */
-	public static int getUserOpenedTicketsNumber(int numEmployee) {
+	public static int findUserOpenedTicketsNumber(int numEmployee) {
 		String t[][] 	= 	{{"int",String.valueOf(numEmployee)}};
-		String query 	= 	"SELECT 	COUNT(tp.numTicket)	AS ticketNb " +
-							"FROM 		technician_per_ticket tp " +
-							"LEFT JOIN	ticket t " +	
-							"ON			t.numTicket = tp.numTicket " +
-							"WHERE		tp.numTechnician = ? " +
-							"AND		t.solved = false " +
-							"GROUP BY	t.numTicket";
+		String query 	= 	new String("SELECT 	COUNT(tp.numTicket)	AS ticketNb " +
+										"FROM 		technician_per_ticket tp " +
+										"LEFT JOIN	ticket t " +	
+										"ON			t.numTicket = tp.numTicket " +
+										"WHERE		tp.numTechnician = ? " +
+										"AND		t.solved = false " +
+										"GROUP BY	t.numTicket");
 		rs = null;
 		db.connect();
 		rs = db.executePreparedQuery(query,t);
@@ -141,15 +141,14 @@ public abstract class BasicRequests {
 	 */
 	public static ArrayList<Employee> findTicketTechnicians(int numTicket){
 		ArrayList<Employee> collEmployee = new ArrayList<Employee>();
-		Database oDbCon 	= new Database();
-		String sQuery 		=	"SELECT 	* " +
-								"FROM 		technician_per_ticket tp " +
-								"LEFT JOIN 	employee e " +
-								"ON			e.numEmployee = tp.numTechnician " +
-								"WHERE	numTicket = ?";
-		String tTable[][] 	= {{"int",String.valueOf(numTicket)}};
-		oDbCon.connect();
-		ResultSet rs = oDbCon.executePreparedQuery(sQuery, tTable);
+		String query 		=	new String("SELECT 	* " +
+											"FROM 		technician_per_ticket tp " +
+											"LEFT JOIN 	employee e " +
+											"ON			e.numEmployee = tp.numTechnician " +
+											"WHERE		numTicket = ?");
+		String t[][] 	= {{"int",String.valueOf(numTicket)}};
+		db.connect();
+		ResultSet rs = db.executePreparedQuery(query, t);
 		try {
 			while (rs.next()) {
 				collEmployee.add(new Employee(rs.getInt("numTechnician"), rs.getString("name"), rs.getString("fName"), 
@@ -159,26 +158,27 @@ public abstract class BasicRequests {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		oDbCon.disconnect();
+		db.disconnect();
 		return collEmployee;
 	}
 	
 	/**
 	 * find all info about ticket's equipment
 	 * @param int umEquipment
-	 * @return
+	 * @return Equipment
 	 */
 	public static Equipment findTicketEquipmentInfo(int numEquipment){
-		Database oDbCon 	= new Database();
-		String sQuery 		=	"SELECT * " +
-								"FROM 	equipment " +
-								"WHERE	numEquipment = ?";
-		String tTable[][] 	= {{"int",String.valueOf(numEquipment)}};
-		oDbCon.connect();
-		ResultSet rs = oDbCon.executePreparedQuery(sQuery, tTable);
+		Equipment 	equip	=	null;	
+		String 		query 	= 	new String("SELECT * " +
+										"FROM 	equipment " +
+										"WHERE	numEquipment = ?");
+		String 		t[][] 	= {{"int",String.valueOf(numEquipment)}};
+		
+		db.connect();
+		ResultSet rs = db.executePreparedQuery(query, t);
 		try {
 			if (rs.first()) {
-				Equipment equip = new Equipment(rs.getInt("numEquipement"), rs.getString("label"), rs.getString("serialNumber")
+				equip = new Equipment(rs.getInt("numEquipement"), rs.getString("label"), rs.getString("serialNumber")
 												,rs.getDate("purchaseDate"), rs.getDate("warrantyDate"), rs.getBoolean("originalComponents")
 												, rs.getInt("numSupplier"), rs.getInt("numEmployee"), rs.getInt("numBrand"),rs.getString("photo"));
 				
@@ -186,13 +186,33 @@ public abstract class BasicRequests {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		oDbCon.disconnect();
-		return new Equipment();
+		db.disconnect();
+		return equip;
 	}
 	
-	public ArrayList<Intervention> getTicketInterventions(int numTicket) {
-		ArrayList<Intervention> interventions = new ArrayList<Intervention>();
+	/**
+	 * Find all ticket's intervention
+	 * @param int numTicket
+	 * @return ArrayList<Intervention>
+	 */
+	public static ArrayList<Intervention> findTicketInterventions(int numTicket) {
+		ArrayList<Intervention> interventions 	= 	new ArrayList<Intervention>();
+		String					query			= 	new String("SELECT 	* " +
+																"FROM	intervention " +
+																"WHERE	numTicket = ?");
+		String 					t[][]			= 	{{"int",Integer.toString(numTicket)}};
 		
+		db.connect();
+		ResultSet rs = db.executePreparedQuery(query, t);
+		try {
+			while (rs.next()) {
+				 interventions.add(new Intervention(rs.getInt("numIntervention"),rs.getInt("numTicket"), 
+				 					rs.getString("description"), rs.getInt("numInterventionType")));
+			}
+		} catch (SQLException e) {
+			System.out.println("[Error BasicRequests.getTicketInterventions]" +e.getMessage());
+		}
+		db.disconnect();
 		return interventions;
 	}
 }

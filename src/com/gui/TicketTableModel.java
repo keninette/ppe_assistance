@@ -5,7 +5,7 @@ import javax.swing.table.AbstractTableModel;
 
 import com.bll.Employee;
 import com.bll.Ticket;
-import com.dal.BasicRequests;
+import com.dal.BasicQueries;
 
 
 public class TicketTableModel extends AbstractTableModel {
@@ -20,7 +20,7 @@ public class TicketTableModel extends AbstractTableModel {
 	public TicketTableModel(Employee user) {
 		super();
 		this.user = user;
-		this.collTickets = BasicRequests.getUserTickets(this.user.getNumEmployee(),10);
+		this.collTickets = BasicQueries.findUserTickets(this.user.getNumEmployee(),10);
 	}
 	
 	@Override

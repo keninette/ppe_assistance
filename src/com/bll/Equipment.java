@@ -3,7 +3,7 @@ package com.bll;
 import java.sql.Date;
 import java.util.ArrayList;
 
-import com.dal.BasicRequests;
+import com.dal.BasicQueries;
 
 public class Equipment {
 	private int 					numEquipment;
@@ -51,9 +51,9 @@ public class Equipment {
 		this.label = label;
 		this.serialNumber = serialNumber;
 		this.originalComponent = originalComponents;
-		this.supplier = (Supplier) BasicRequests.createInstance("supplier",numSupplier);
-		this.employee = (Employee) BasicRequests.createInstance("employee", numEmployee);
-		this.brand = (Brand) BasicRequests.createInstance("brand",numBrand);
+		this.supplier = (Supplier) BasicQueries.createInstance("supplier",numSupplier);
+		this.employee = (Employee) BasicQueries.createInstance("employee", numEmployee);
+		this.brand = (Brand) BasicQueries.createInstance("brand",numBrand);
 		this.photo = photo;
 		// TODO : arraylist
 	}

@@ -1,7 +1,7 @@
 package com.bll;
 
 import com.bll.categories.ComponentType;
-import com.dal.BasicRequests;
+import com.dal.BasicQueries;
 
 public class Component {
 	private int				numComponent;
@@ -42,9 +42,9 @@ public class Component {
 		this.label = label;
 		this.serialNumber = serialNumber;
 		this.componentType = new ComponentType(numComponentType);
-		this.supplier = (Supplier) BasicRequests.createInstance("supplier", numSupplier);
-		this.brand = (Brand) BasicRequests.createInstance("brand", numBrand);
-		this.equipment = (Equipment) BasicRequests.createInstance("equipment", numEquipment);
+		this.supplier = (Supplier) BasicQueries.createInstance("supplier", numSupplier);
+		this.brand = (Brand) BasicQueries.createInstance("brand", numBrand);
+		this.equipment = (Equipment) BasicQueries.createInstance("equipment", numEquipment);
 	}
 	
 	/*************** getters & setters ***************/
