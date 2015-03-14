@@ -81,7 +81,7 @@ public abstract class BasicQueries {
 															"FROM 		technician_per_ticket tp " +
 															"LEFT JOIN 	ticket t " +
 															"ON 		t.numTicket = tp.numTicket " +
-															"WHERE		p.numTechnician = ? " +
+															"WHERE		tp.numTechnician = ? " +
 															"AND		t.solved = false " +
 															"ORDER BY	t.openDateTime DESC ");
 		query += limit == 0 ? "" : "LIMIT ?";
